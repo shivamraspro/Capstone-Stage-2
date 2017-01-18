@@ -42,15 +42,30 @@ public class MedicineColumns {
     @NotNull
     public static final String DOSE  = "dose";
 
-    //Extra Message for the medication
+    //Extra Free Text Message for the medication
     @DataType(DataType.Type.TEXT)
     @NotNull
-    public static final String MESSAGE  = "message";
+    public static final String MESSAGE_FOOD = "food_message";
+
+    //Extra Free Text Message for the medication
+    @DataType(DataType.Type.TEXT)
+    @NotNull
+    public static final String MESSAGE_FREE = "free_message";
 
     //Boolean for if the reminders are needed for a particular medicine
     @DataType(DataType.Type.INTEGER)
     @NotNull
     public static final String REMINDER = "reminder";
+
+    //Shape of medicine (0 for circle, 1 for rectangle)
+    @DataType(DataType.Type.INTEGER)
+    @NotNull
+    public static final String SHAPE = "shape";
+
+    //Color of medicine (0-7)
+    @DataType(DataType.Type.INTEGER)
+    @NotNull
+    public static final String COLOR = "color";
 
 
     //Columns array for faster query buildup
@@ -61,8 +76,11 @@ public class MedicineColumns {
             TIME_IN_MILLIS,
             NAME,
             DOSE,
-            MESSAGE,
-            REMINDER
+            MESSAGE_FOOD,
+            MESSAGE_FREE,
+            REMINDER,
+            SHAPE,
+            COLOR
     };
 
     //Columns Indices
@@ -72,7 +90,10 @@ public class MedicineColumns {
     public static final int TIME_IN_MILLIS_INDEX = 3;
     public static final int NAME_INDEX = 4;
     public static final int DOSE_INDEX = 5;
-    public static final int MESSAGE_INDEX = 6;
-    public static final int REMINDER_INDEX = 7;
+    public static final int MESSAGE_FOOD_INDEX = 6;
+    public static final int MESSAGE_FREE_INDEX = 7;
+    public static final int REMINDER_INDEX = 8;
+    public static final int SHAPE_INDEX = 9;
+    public static final int COLOR_INDEX = 10;
 
 }

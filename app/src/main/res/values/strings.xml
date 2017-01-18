@@ -3,7 +3,7 @@
     <string name="add_medication_activity_title">Add Medication</string>
     <string name="medication_name_title">Medication Name</string>
     <string name="medication_name_hint">Type active ingredient/brand name</string>
-    <string name="button_text">Next</string>
+    <string name="button_text">Done</string>
     <string name="reminder_times_title">Reminder Times</string>
     <string name="no_reminders_text">Take as needed</string>
     <string name="time_picker_dialog_title">Set Time and Quantity</string>
@@ -12,6 +12,15 @@
     <string name="dialog_time_picker_negative_button">Cancel</string>
     <string name="selectedDoseString">Take <xliff:g id="doseQty">%.2f</xliff:g></string>
     <string name="selectedDoseStringInt">Take <xliff:g id="doseQtyInt">%d</xliff:g></string>
+    <string name="medication_message_title">Instructions</string>
+    <string name="medication_message_subtitle">Food Instructions</string>
+    <string name="before_food_instruction">Before food</string>
+    <string name="after_food_instruction">After food</string>
+    <string name="with_food_instruction">With food</string>
+    <string name="no_food_instructions">No food Instructions</string>
+    <string name="medication_free_instructions_hint">Free text instructions</string>
+    <string name="medication_shape_and_colour_title"><![CDATA[Shape & Colour]]></string>
+    <string name="medication_shape_title">Select shape</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>

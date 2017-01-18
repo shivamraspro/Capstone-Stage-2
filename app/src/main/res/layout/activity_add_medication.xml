@@ -37,6 +37,7 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+
             <android.support.v7.widget.CardView
                 android:id="@+id/medication_name"
                 android:layout_width="match_parent"
@@ -69,11 +70,10 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/medication_name_hint"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textNoSuggestions"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/medication_reminder_times"
@@ -164,8 +164,8 @@
                         android:layout_below="@+id/time_selector_1"
                         android:onClick="showMedicineTimePickerDialog"
                         android:paddingBottom="8dp"
-                        android:visibility="gone"
-                        android:paddingTop="8dp">
+                        android:paddingTop="8dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/selectedTime_2"
@@ -364,8 +364,171 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/medication_shape_and_colour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/medication_shape_and_colour_title"
+                        style="@style/CardViewTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:text="@string/medication_shape_and_colour_title"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/shape_circle"
+                            android:onClick="selectedShapeChanged"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="false"
+                            android:layout_alignParentStart="false"
+                            android:layout_marginEnd="48dp"
+                            android:layout_marginRight="48dp"
+                            android:background="@drawable/scrim"
+                            android:clickable="true"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_circle"/>
+
+
+                        <ImageView
+                            android:id="@+id/shape_rectangle"
+                            android:onClick="selectedShapeChanged"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/shape_circle"
+                            android:layout_toRightOf="@id/shape_circle"
+                            android:clickable="true"
+                            android:paddingBottom="8dp"
+                            android:paddingEnd="2dp"
+                            android:paddingLeft="2dp"
+                            android:paddingRight="2dp"
+                            android:paddingStart="2dp"
+                            android:paddingTop="8dp"
+                            android:src="@drawable/ic_rectangle"/>
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/color_pallette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+                    </android.support.v7.widget.RecyclerView>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/medication_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/medication_message_title"
+                        style="@style/CardViewTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:text="@string/medication_message_title"/>
+
+                    <TextView
+                        android:id="@+id/medication_message_subtitle"
+                        style="@style/CardViewEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medication_message_subtitle"/>
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/before_food"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="foodMessageChanged"
+                            android:text="@string/before_food_instruction"/>
+
+                        <RadioButton
+                            android:id="@+id/after_food"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="foodMessageChanged"
+                            android:text="@string/after_food_instruction"/>
+
+                        <RadioButton
+                            android:id="@+id/with_food"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="foodMessageChanged"
+                            android:text="@string/with_food_instruction"/>
+
+                        <RadioButton
+                            android:id="@+id/no_food_instructions"
+                            style="@style/CardViewEditText"
+                            android:onClick="foodMessageChanged"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/no_food_instructions"/>
+                    </RadioGroup>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/grey_200"/>
+
+                    <EditText
+                        android:id="@+id/medication_message_edittext"
+                        style="@style/CardViewEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/medication_free_instructions_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="textNoSuggestions"
+                        android:maxLines="2"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <Button
-                android:id="@+id/button"
+                android:id="@+id/done_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -382,3 +545,10 @@
     </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/medication_shape_title"-->
+    <!--style="@style/CardViewEditText"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+    <!--android:text="@string/medication_shape_title"/>-->
