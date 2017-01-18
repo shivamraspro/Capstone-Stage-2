@@ -1,0 +1,34 @@
+<resources>
+
+    <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/teal_500</item>
+        <item name="colorPrimaryDark">@color/teal_700</item>
+        <item name="colorAccent">@color/accent_custom</item>
+    </style>
+
+    <style name="AddMedicationActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/teal_500</item>
+        <item name="colorPrimaryDark">@color/teal_700</item>
+        <item name="colorAccent">@color/teal_500</item>
+    </style>
+
+    <style name="CardViewTitle">
+        <item name="android:textColor">@color/teal_500</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+    <style name="CardViewSecondaryText">
+        <item name="android:textColor">@color/grey_500</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="CardViewEditText">
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+
+</resources>

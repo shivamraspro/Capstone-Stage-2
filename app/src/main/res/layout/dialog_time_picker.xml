@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+              android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/time_picker_dialog_title"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/black"/>
+
+    <TimePicker
+        android:id="@+id/simple_time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:timePickerMode="spinner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/time_picker_dialog_subtext"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/teal_500"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <EditText
+            android:id="@+id/dose_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:inputType="number"
+            android:textAppearance="?android:textAppearanceLarge"/>
+
+        <ImageButton
+            android:id="@+id/minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_toLeftOf="@+id/dose_quantity"
+            android:backgroundTint="@color/white"
+            app:srcCompat="@drawable/ic_minus"/>
+
+        <ImageButton
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_toEndOf="@+id/dose_quantity"
+            android:layout_toRightOf="@+id/dose_quantity"
+            android:backgroundTint="@color/white"
+            app:srcCompat="@drawable/ic_add"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/positive_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="4dp"
+            android:text="@string/dialog_time_picker_positive_button"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/teal_500"/>
+
+        <TextView
+            android:id="@+id/negative_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/positive_button"
+            android:layout_toStartOf="@id/positive_button"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="4dp"
+            android:text="@string/dialog_time_picker_negative_button"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/teal_500"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

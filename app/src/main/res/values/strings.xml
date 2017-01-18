@@ -1,0 +1,25 @@
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name">PillBox</string>
+    <string name="add_medication_activity_title">Add Medication</string>
+    <string name="medication_name_title">Medication Name</string>
+    <string name="medication_name_hint">Type active ingredient/brand name</string>
+    <string name="button_text">Next</string>
+    <string name="reminder_times_title">Reminder Times</string>
+    <string name="no_reminders_text">Take as needed</string>
+    <string name="time_picker_dialog_title">Set Time and Quantity</string>
+    <string name="time_picker_dialog_subtext">Set quantity (number of doses) to be taken at this hour</string>
+    <string name="dialog_time_picker_positive_button">Set</string>
+    <string name="dialog_time_picker_negative_button">Cancel</string>
+    <string name="selectedDoseString">Take <xliff:g id="doseQty">%.2f</xliff:g></string>
+    <string name="selectedDoseStringInt">Take <xliff:g id="doseQtyInt">%d</xliff:g></string>
+
+    <string-array name="reminder_times_array">
+        <item>Once a day</item>
+        <item>Twice a day</item>
+        <item>3 times a day</item>
+        <item>4 times a day</item>
+        <item>5 times a day</item>
+        <item>6 times a day</item>
+        <item>7 times a day</item>
+    </string-array>
+</resources>
