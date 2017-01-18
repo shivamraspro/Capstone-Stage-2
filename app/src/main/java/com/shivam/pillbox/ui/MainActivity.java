@@ -30,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(mContext, AddMedicationActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(mContext, AddMedicationActivity.class);
+//        startActivity(intent);
+
+        setupStetho();
     }
 
     private void setupStetho() {

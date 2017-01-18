@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/add_medication_coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,8 +17,45 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="@string/add_medication_activity_title">
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:layout_height="wrap_content"
+                    android:onClick="createClosingDialog"
+                    app:srcCompat="@drawable/ic_cross"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_medication_activity_title"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:padding="16dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textAllCaps="true"
+                    android:onClick="saveMedication"
+                    android:textStyle="bold"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:textColor="@color/white"
+                    android:text="@string/button_text"/>
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -98,13 +136,13 @@
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:text="@string/reminder_times_title"/>
 
-                    <Switch
-                        android:id="@+id/reminder_times_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:checked="true"/>
+                    <!--<Switch-->
+                        <!--android:id="@+id/reminder_times_switch"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:checked="true"/>-->
 
                     <TextView
                         android:id="@+id/no_reminders_text"
@@ -396,7 +434,6 @@
 
                         <ImageView
                             android:id="@+id/shape_circle"
-                            android:onClick="selectedShapeChanged"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="false"
@@ -405,18 +442,19 @@
                             android:layout_marginRight="48dp"
                             android:background="@drawable/scrim"
                             android:clickable="true"
+                            android:onClick="selectedShapeChanged"
                             android:padding="4dp"
                             android:src="@drawable/ic_circle"/>
 
 
                         <ImageView
                             android:id="@+id/shape_rectangle"
-                            android:onClick="selectedShapeChanged"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/shape_circle"
                             android:layout_toRightOf="@id/shape_circle"
                             android:clickable="true"
+                            android:onClick="selectedShapeChanged"
                             android:paddingBottom="8dp"
                             android:paddingEnd="2dp"
                             android:paddingLeft="2dp"
@@ -428,6 +466,8 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/color_pallette"
+                        android:scrollbars="vertical"
+                        android:focusable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center">
@@ -500,10 +540,10 @@
                         <RadioButton
                             android:id="@+id/no_food_instructions"
                             style="@style/CardViewEditText"
-                            android:onClick="foodMessageChanged"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
+                            android:onClick="foodMessageChanged"
                             android:text="@string/no_food_instructions"/>
                     </RadioGroup>
 
@@ -536,8 +576,9 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:backgroundTint="@color/accent_custom"
                 android:text="@string/button_text"
-                android:textColor="@color/white"
-                android:visibility="gone"/>
+                android:onClick="saveMedication"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

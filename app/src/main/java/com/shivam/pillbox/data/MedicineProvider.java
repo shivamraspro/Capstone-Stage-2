@@ -31,7 +31,7 @@ public class MedicineProvider {
     }
 
     @TableEndpoint(table = MedicineDatabase.MEDICINES)
-    public static class Quotes {
+    public static class Medicines {
         @ContentUri(
                 path = Path.MEDICINES,
                 type = "vnd.android.cursor.dir/quote",

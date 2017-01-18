@@ -1,8 +1,12 @@
 package com.shivam.pillbox.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,21 +14,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.extras.ColorPalletteAdapter;
+import com.shivam.pillbox.extras.MedicineProperties;
+import com.shivam.pillbox.extras.MedicineTime;
 import com.shivam.pillbox.extras.RecyclerViewTouchListener;
+import com.shivam.pillbox.extras.SaveMedicineAsyncTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -34,6 +40,9 @@ public class AddMedicationActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener,
         MedicineTimePickerFragment.TimePickerAndDosageDialogListener {
 
+    @BindView(R.id.add_medication_coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+
     @BindView(R.id.medication_name_edittext)
     EditText medicationNameEditText;
 
@@ -42,9 +51,6 @@ public class AddMedicationActivity extends AppCompatActivity
 
     @BindView(R.id.medication_reminder_times)
     CardView reminderTimesCardView;
-
-    @BindView(R.id.reminder_times_switch)
-    Switch reminderTimesSwitch;
 
     @BindView(R.id.no_reminders_text)
     TextView noRemindersText;
@@ -117,11 +123,12 @@ public class AddMedicationActivity extends AppCompatActivity
     private int currentMins;
     final Calendar calendar = Calendar.getInstance();
     public static FrameLayout oldView;
+    private int[] timeSelectorId = {R.id.time_selector_1, R.id.time_selector_2, R.id
+            .time_selector_3, R.id.time_selector_4, R.id.time_selector_5, R.id.time_selector_6, R
+            .id.time_selector_7};
 
     private String medicineName = "";
-    private boolean medicineNameValid = false;
 
-    private boolean medicineReminder;
     private int medicineReminderFrequency;
 
     private ArrayList<LinearLayout> timeSelectors;
@@ -134,6 +141,8 @@ public class AddMedicationActivity extends AppCompatActivity
 
     //Color of medicine (0-7)
     private int colorSelected = 0;
+
+    private HashMap<Integer, MedicineTime> medicineTimes;
 
     public static int[] colors = {R.color.red_500, R.color.purple_500, R.color.indigo_500,
             R.color.lightblue_500, R.color.green_500, R.color.yellow_500,
@@ -156,57 +165,19 @@ public class AddMedicationActivity extends AppCompatActivity
         timeSelectors.add(timeSelector5);
         timeSelectors.add(timeSelector6);
         timeSelectors.add(timeSelector7);
-//
-//        medicationNameEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if(charSequence.length() != 0) {
-//                    medicineNameValid = true;
-//                }
-//                else
-//                    medicineNameValid = false;
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                medicineName = editable.toString();
-//            }
-//        });
 
         medicineReminderFrequency = 1;
         reminderTimesSpinner.setOnItemSelectedListener(this);
-
-        reminderTimesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                medicineReminder = b;
-                if (b) {
-                    noRemindersText.setVisibility(View.GONE);
-                    reminderTimesSpinner.setVisibility(View.VISIBLE);
-                    for (int i = 0; i < medicineReminderFrequency; i++) {
-                        timeSelectors.get(i).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    reminderTimesSpinner.setVisibility(View.GONE);
-                    for (int i = 0; i < medicineReminderFrequency; i++) {
-                        timeSelectors.get(i).setVisibility(View.GONE);
-                    }
-                    noRemindersText.setVisibility(View.VISIBLE);
-                    medicineReminderFrequency = 0;
-                }
-            }
-        });
 
         calendar.setTimeInMillis(System.currentTimeMillis());
         currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         currentMins = calendar.get(Calendar.MINUTE);
 
         String timeString = getTimeString(currentHour, currentMins);
+
+        //medicineTimes = new HashMap<>();
+        // medicineTimes.put(R.id.time_selector_1, new MedicineTime(currentHour, currentMins, 1
+        // .00f));
 
         selectedTime1.setText(timeString);
         selectedTime2.setText(timeString);
@@ -227,14 +198,13 @@ public class AddMedicationActivity extends AppCompatActivity
             @Override
             public void onClick(View view, int position) {
                 colorSelected = position;
-                if(oldView != null)
+                if (oldView != null)
                     oldView.setBackground(null);
                 FrameLayout f = (FrameLayout) view.findViewById(R.id.color_view_container);
                 f.setBackground(scrim);
                 oldView = f;
             }
         }));
-
     }
 
     @Override
@@ -242,9 +212,11 @@ public class AddMedicationActivity extends AppCompatActivity
         for (int i = 0; i < 7; i++) {
             timeSelectors.get(i).setVisibility(View.GONE);
         }
+        medicineTimes = new HashMap<>();
         medicineReminderFrequency = pos + 1;
         for (int i = 0; i < medicineReminderFrequency; i++) {
             timeSelectors.get(i).setVisibility(View.VISIBLE);
+            medicineTimes.put(timeSelectorId[i], new MedicineTime(currentHour, currentMins, 1.00f));
         }
     }
 
@@ -265,8 +237,10 @@ public class AddMedicationActivity extends AppCompatActivity
     @Override
     public void getTimeAndDosage(int hour, int mins, float dose, int id) {
         if (hour != -1 && mins != -1) {
+            medicineTimes.put(id, new MedicineTime(hour, mins, dose));
             bindTimeAndDosage(hour, mins, dose, id);
         } else {
+            medicineTimes.put(id, new MedicineTime(currentHour, currentMins, dose));
             bindTimeAndDosage(currentHour, currentMins, dose, id);
         }
     }
@@ -314,25 +288,6 @@ public class AddMedicationActivity extends AppCompatActivity
         }
     }
 
-//    private String getTimeString() {
-//
-//        //0 for AM and 1 for PM
-//        int am_pm = c.get(Calendar.AM_PM);
-//
-//        String currentTime = "";
-//        if(currentHour < 10)
-//            currentTime = "0" + currentHour + ":" + currentMins;
-//        else
-//            currentTime = currentHour + ": ";
-//
-//        if(am_pm == 0)
-//            currentTime += " AM";
-//        else
-//            currentTime += " PM";
-//
-//        return currentTime;
-//    }
-
     //get time in string format to be displayed on ReminderTimes Cardview
     private String getTimeString(int hour, int mins) {
 
@@ -348,7 +303,8 @@ public class AddMedicationActivity extends AppCompatActivity
         if (hour < 12)
             currentTime = hour + ":" + minutes + " AM";
         else {
-            hour -= 12;
+            if (hour != 12)
+                hour -= 12;
             currentTime = hour + ":" + minutes + " PM";
         }
 
@@ -374,18 +330,43 @@ public class AddMedicationActivity extends AppCompatActivity
 
     public void selectedShapeChanged(View view) {
         switch (view.getId()) {
-            case R.id.shape_circle :
+            case R.id.shape_circle:
                 shapeSelected = 0;
                 view.setBackground(scrim);
                 shapeRectangleImageView.setBackground(null);
-            break;
+                break;
 
             case R.id.shape_rectangle:
                 shapeSelected = 1;
                 view.setBackground(scrim);
                 shapeCircleImageView.setBackground(null);
-            break;
+                break;
         }
+    }
+
+    public void saveMedication(View view) {
+        medicineName = medicationNameEditText.getText().toString();
+        freeMessage = freeMessageEditText.getText().toString();
+
+        if (medicineName.equals("")) {
+            Snackbar.make(coordinatorLayout, getString(R.string
+                    .alert_dialog_medication_name_invalid_msg), Snackbar.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        new SaveMedicineAsyncTask().execute(new MedicineProperties(
+                mContext,
+                medicineTimes,
+                medicineName,
+                medicineReminderFrequency,
+                foodMessage,
+                freeMessage,
+                shapeSelected,
+                colorSelected
+        ));
+
+        AddMedicationActivity.this.finish();
     }
 
     public interface ClickListener {
@@ -393,17 +374,23 @@ public class AddMedicationActivity extends AppCompatActivity
     }
 
 
-//    @Override
-//    public void onBackPressed() {
-//        new AlertDialog.Builder(this)
-//                .setMessage("Are you sure you want to exit?")
-//                .setCancelable(true)
-//                .setPositiveButton("Quit", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        AddMedicationActivity.this.finish();
-//                    }
-//                })
-//                .setNegativeButton("Cancel", null)
-//                .show();
-//    }
+    @Override
+    public void onBackPressed() {
+        createClosingDialog(null);
+    }
+
+    public void createClosingDialog(View view) {
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.add_medication_quit_dialog_text))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.dialog_add_medication_quit_positive_button),
+                        new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        AddMedicationActivity.this.finish();
+                                    }
+                                })
+                .setNegativeButton(getString(R.string.dialog_time_picker_negative_button), null)
+                .show();
+    }
 }

@@ -3,6 +3,7 @@ package com.shivam.pillbox.data;
 import net.simonvt.schematic.annotation.DataType;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
+import net.simonvt.schematic.annotation.Unique;
 
 /**
  * Created by shivam on 16/01/17.
@@ -14,12 +15,13 @@ public class MedicineColumns {
     //To make each alarm ID unique, it will be the current system time in Millis
     @DataType(DataType.Type.REAL)
     @PrimaryKey
+    @Unique
     public static final String _ID = "_id";
 
     //Hour in 24-hour format (0 - 23)
     @DataType(DataType.Type.INTEGER)
     @NotNull
-    public static final String HOUR = "hour";
+    public static final String HOUR_OF_DAY = "hour";
 
     //Minutes (0-59)
     @DataType(DataType.Type.INTEGER)
@@ -52,11 +54,6 @@ public class MedicineColumns {
     @NotNull
     public static final String MESSAGE_FREE = "free_message";
 
-    //Boolean for if the reminders are needed for a particular medicine
-    @DataType(DataType.Type.INTEGER)
-    @NotNull
-    public static final String REMINDER = "reminder";
-
     //Shape of medicine (0 for circle, 1 for rectangle)
     @DataType(DataType.Type.INTEGER)
     @NotNull
@@ -71,29 +68,27 @@ public class MedicineColumns {
     //Columns array for faster query buildup
     public static final String[] ALL_COLUMNS = {
             _ID,
-            HOUR,
+            HOUR_OF_DAY,
             MINUTES,
             TIME_IN_MILLIS,
             NAME,
             DOSE,
             MESSAGE_FOOD,
             MESSAGE_FREE,
-            REMINDER,
             SHAPE,
             COLOR
     };
 
     //Columns Indices
     public static final int ID_INDEX = 0;
-    public static final int HOUR_INDEX = 1;
+    public static final int HOUR_OF_DAY_INDEX = 1;
     public static final int MINUTES_INDEX = 2;
     public static final int TIME_IN_MILLIS_INDEX = 3;
     public static final int NAME_INDEX = 4;
     public static final int DOSE_INDEX = 5;
     public static final int MESSAGE_FOOD_INDEX = 6;
     public static final int MESSAGE_FREE_INDEX = 7;
-    public static final int REMINDER_INDEX = 8;
-    public static final int SHAPE_INDEX = 9;
-    public static final int COLOR_INDEX = 10;
+    public static final int SHAPE_INDEX = 8;
+    public static final int COLOR_INDEX = 9;
 
 }
