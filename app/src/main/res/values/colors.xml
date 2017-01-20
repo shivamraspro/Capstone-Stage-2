@@ -13,13 +13,13 @@
 
 
     <!--colors for pill-->
-    <color name="red_500">#F44336</color>
-    <color name="purple_500">#9C27B0</color>
-    <color name="indigo_500">#3F51B5</color>
-    <color name="lightblue_500">#03A9F4</color>
-    <color name="green_500">#4CAF50</color>
-    <color name="yellow_500">#FFEB3B</color>
-    <color name="deeporange_500">#FF5722</color>
-    <color name="brown_500">#795548</color>
+    <color name="red_200">#EF9A9A</color>
+    <color name="purple_200">#CE93D8</color>
+    <color name="indigo_200">#9FA8DA</color>
+    <color name="lightblue_200">#81D4FA</color>
+    <color name="green_200">#A5D6A7</color>
+    <color name="yellow_200">#FFF59D</color>
+    <color name="deeporange_200">#FFAB91</color>
+    <color name="brown_200">#BCAAA4</color>
 
 </resources>

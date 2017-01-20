@@ -22,9 +22,11 @@
     <string name="medication_shape_and_colour_title"><![CDATA[Shape & Colour]]></string>
     <string name="medication_shape_title">Select shape</string>
     <string name="alert_dialog_medication_name_invalid_msg">Please enter valid medication name!</string>
-    <string name="add_medication_quit_dialog_text">\"You have unsaved changes! Are you sure you want to exit?\"</string>
+    <string name="add_medication_quit_dialog_text">You have unsaved changes! Are you sure you
+        want to quit?</string>
     <string name="dialog_add_medication_quit_positive_button">Quit</string>
     <string name="medicine_saved_success">New Medicine Saved!</string>
+    <string name="upcoming_medicines_text">Upcoming medicines for the day :</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>

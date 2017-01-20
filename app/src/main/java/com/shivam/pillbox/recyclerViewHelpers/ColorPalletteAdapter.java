@@ -1,4 +1,4 @@
-package com.shivam.pillbox.extras;
+package com.shivam.pillbox.recyclerViewHelpers;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -18,17 +18,6 @@ import com.shivam.pillbox.ui.AddMedicationActivity;
 public class ColorPalletteAdapter extends RecyclerView.Adapter<ColorPalletteAdapter.ViewHolder> {
     private int[] colors;
     private Context context;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public CardView colorView;
-        public FrameLayout colorViewContainer;
-
-        public ViewHolder(View v) {
-            super(v);
-            colorViewContainer = (FrameLayout) v.findViewById(R.id.color_view_container);
-            colorView = (CardView) colorViewContainer.findViewById(R.id.color_view);
-        }
-    }
 
     public ColorPalletteAdapter(Context context, int[] c) {
         this.context = context;
@@ -64,5 +53,16 @@ public class ColorPalletteAdapter extends RecyclerView.Adapter<ColorPalletteAdap
     @Override
     public int getItemCount() {
         return 8;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final CardView colorView;
+        public final FrameLayout colorViewContainer;
+
+        public ViewHolder(View v) {
+            super(v);
+            colorViewContainer = (FrameLayout) v.findViewById(R.id.color_view_container);
+            colorView = (CardView) colorViewContainer.findViewById(R.id.color_view);
+        }
     }
 }

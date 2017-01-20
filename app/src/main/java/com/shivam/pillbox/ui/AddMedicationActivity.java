@@ -22,11 +22,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.shivam.pillbox.R;
-import com.shivam.pillbox.extras.ColorPalletteAdapter;
+import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
 import com.shivam.pillbox.extras.MedicineProperties;
 import com.shivam.pillbox.extras.MedicineTime;
-import com.shivam.pillbox.extras.RecyclerViewTouchListener;
-import com.shivam.pillbox.extras.SaveMedicineAsyncTask;
+import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
+import com.shivam.pillbox.extras.SaveMedicineTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -144,9 +144,9 @@ public class AddMedicationActivity extends AppCompatActivity
 
     private HashMap<Integer, MedicineTime> medicineTimes;
 
-    public static int[] colors = {R.color.red_500, R.color.purple_500, R.color.indigo_500,
-            R.color.lightblue_500, R.color.green_500, R.color.yellow_500,
-            R.color.deeporange_500, R.color.brown_500};
+    public static int[] colors = {R.color.red_200, R.color.purple_200, R.color.indigo_200,
+            R.color.lightblue_200, R.color.green_200, R.color.yellow_200,
+            R.color.deeporange_200, R.color.brown_200};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,18 +193,19 @@ public class AddMedicationActivity extends AppCompatActivity
         colorPalleteRV.setLayoutManager(new GridLayoutManager(mContext, 4));
         ColorPalletteAdapter adapter = new ColorPalletteAdapter(mContext, colors);
         colorPalleteRV.setAdapter(adapter);
-        colorPalleteRV.addOnItemTouchListener(new RecyclerViewTouchListener(mContext,
-                colorPalleteRV, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                colorSelected = position;
-                if (oldView != null)
-                    oldView.setBackground(null);
-                FrameLayout f = (FrameLayout) view.findViewById(R.id.color_view_container);
-                f.setBackground(scrim);
-                oldView = f;
-            }
-        }));
+        colorPalleteRV.addOnItemTouchListener(new RecyclerViewClickListener(mContext, new
+                RecyclerViewClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        colorSelected = position;
+                        if (oldView != null)
+                            oldView.setBackground(null);
+                        FrameLayout f = (FrameLayout) v.findViewById(R.id.color_view_container);
+                        f.setBackground(scrim);
+                        oldView = f;
+                    }
+                }) {
+        });
     }
 
     @Override
@@ -355,7 +356,7 @@ public class AddMedicationActivity extends AppCompatActivity
             return;
         }
 
-        new SaveMedicineAsyncTask().execute(new MedicineProperties(
+        new SaveMedicineTask().execute(new MedicineProperties(
                 mContext,
                 medicineTimes,
                 medicineName,
@@ -368,11 +369,6 @@ public class AddMedicationActivity extends AppCompatActivity
 
         AddMedicationActivity.this.finish();
     }
-
-    public interface ClickListener {
-        void onClick(View view, int position);
-    }
-
 
     @Override
     public void onBackPressed() {

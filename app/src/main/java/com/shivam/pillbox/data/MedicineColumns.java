@@ -11,12 +11,19 @@ import net.simonvt.schematic.annotation.Unique;
 
 public class MedicineColumns {
 
-    //Each alarm has a unique alarm ID
-    //To make each alarm ID unique, it will be the current system time in Millis
-    @DataType(DataType.Type.REAL)
+    //Each medicine alarm has a unique alarm ID
+    //To make each medicine alarm ID unique, it will set using the current system time in Millis
+    @DataType(DataType.Type.INTEGER)
     @PrimaryKey
     @Unique
     public static final String _ID = "_id";
+
+    //Each medicine will have this particular id
+    //It will be common across all alarm times
+    //It will be a combination of medicine name and the current system time in millis
+    @DataType(DataType.Type.TEXT)
+    @NotNull
+    public static final String MEDICINE_ID = "med_id";
 
     //Hour in 24-hour format (0 - 23)
     @DataType(DataType.Type.INTEGER)
@@ -68,6 +75,7 @@ public class MedicineColumns {
     //Columns array for faster query buildup
     public static final String[] ALL_COLUMNS = {
             _ID,
+            MEDICINE_ID,
             HOUR_OF_DAY,
             MINUTES,
             TIME_IN_MILLIS,
@@ -81,14 +89,15 @@ public class MedicineColumns {
 
     //Columns Indices
     public static final int ID_INDEX = 0;
-    public static final int HOUR_OF_DAY_INDEX = 1;
-    public static final int MINUTES_INDEX = 2;
-    public static final int TIME_IN_MILLIS_INDEX = 3;
-    public static final int NAME_INDEX = 4;
-    public static final int DOSE_INDEX = 5;
-    public static final int MESSAGE_FOOD_INDEX = 6;
-    public static final int MESSAGE_FREE_INDEX = 7;
-    public static final int SHAPE_INDEX = 8;
-    public static final int COLOR_INDEX = 9;
+    public static final int MEDICINE_ID_INDEX = 1;
+    public static final int HOUR_OF_DAY_INDEX = 2;
+    public static final int MINUTES_INDEX = 3;
+    public static final int TIME_IN_MILLIS_INDEX = 4;
+    public static final int NAME_INDEX = 5;
+    public static final int DOSE_INDEX = 6;
+    public static final int MESSAGE_FOOD_INDEX = 7;
+    public static final int MESSAGE_FREE_INDEX = 8;
+    public static final int SHAPE_INDEX = 9;
+    public static final int COLOR_INDEX = 10;
 
 }

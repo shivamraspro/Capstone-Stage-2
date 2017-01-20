@@ -19,7 +19,7 @@ import java.util.Random;
  * Created by shivam on 18/01/17.
  */
 
-public class SaveMedicineAsyncTask extends AsyncTask<MedicineProperties ,Void, Context> {
+public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Context> {
 
     @Override
     protected Context doInBackground(MedicineProperties... medicineProperties) {
@@ -50,7 +50,7 @@ public class SaveMedicineAsyncTask extends AsyncTask<MedicineProperties ,Void, C
             mins = medicineProperties[0].getMedicineTimes().get(key).getMins();
             dose = medicineProperties[0].getMedicineTimes().get(key).getDose();
 
-            if (hourOfDay < nowHour || (hourOfDay == nowHour && mins <= nowMins)) {
+            if (hourOfDay < nowHour || (hourOfDay == nowHour && mins < nowMins)) {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
