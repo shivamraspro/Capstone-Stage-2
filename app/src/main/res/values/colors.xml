@@ -10,7 +10,7 @@
     <color name="grey_900">#212121</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="grey_50">#FAFAFA</color>
 
     <!--colors for pill-->
     <color name="red_200">#EF9A9A</color>
@@ -21,5 +21,26 @@
     <color name="yellow_200">#FFF59D</color>
     <color name="deeporange_200">#FFAB91</color>
     <color name="brown_200">#BCAAA4</color>
+
+    <!--colors for background-->
+    <color name="red_50">#FFEBEE</color>
+    <color name="purple_50">#F3E5F5</color>
+    <color name="indigo_50">#E8EAF6</color>
+    <color name="lightblue_50">#E1F5FE</color>
+    <color name="green_50">#E8F5E9</color>
+    <color name="yellow_50">#FFFDE7</color>
+    <color name="deeporange_50">#FBE9E7</color>
+    <color name="brown_50">#EFEBE9</color>
+
+    <!--colors for text-->
+    <color name="red_700">#D32F2F</color>
+    <color name="purple_700">#7B1FA2</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="lightblue_700">#0288D1</color>
+    <color name="green_700">#388E3C</color>
+    <color name="yellow_800">#F9A825</color>
+    <color name="deeporange_700">#E64A19</color>
+    <color name="brown_700">#5D4037</color>
+
 
 </resources>

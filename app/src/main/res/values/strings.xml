@@ -14,9 +14,9 @@
     <string name="selectedDoseStringInt">Take <xliff:g id="doseQtyInt">%d</xliff:g></string>
     <string name="medication_message_title">Instructions</string>
     <string name="medication_message_subtitle">Food Instructions</string>
-    <string name="before_food_instruction">Before food</string>
-    <string name="after_food_instruction">After food</string>
-    <string name="with_food_instruction">With food</string>
+    <string name="before_food_instruction">before food</string>
+    <string name="after_food_instruction">after food</string>
+    <string name="with_food_instruction">with food</string>
     <string name="no_food_instructions">No food Instructions</string>
     <string name="medication_free_instructions_hint">Free text instructions</string>
     <string name="medication_shape_and_colour_title"><![CDATA[Shape & Colour]]></string>
@@ -25,8 +25,16 @@
     <string name="add_medication_quit_dialog_text">You have unsaved changes! Are you sure you
         want to quit?</string>
     <string name="dialog_add_medication_quit_positive_button">Quit</string>
-    <string name="medicine_saved_success">New Medicine Saved!</string>
+    <string name="medicine_saved_success">New Medicine Saved</string>
     <string name="upcoming_medicines_text">Upcoming medicines for the day :</string>
+    <string name="details_activity_title">Details</string>
+    <string name="details_instructions_title">Instructions :</string>
+    <string name="details_frequency_text">Taken <xliff:g id="freq">%d</xliff:g> times a day</string>
+    <string name="details_frequency_text_one">Taken once a day</string>
+    <string name="delete_medicine_toast">Medicine Deleted</string>
+    <string name="delete_medicine_alert_dialog">All reminders of this medicine will be deleted. Continue?</string>
+    <string name="delete_medicine_alert_dialog_positive_button">Yes</string>
+    <string name="details_upcoming_title">Upcoming reminders :</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>

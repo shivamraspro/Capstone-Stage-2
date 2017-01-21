@@ -19,8 +19,8 @@ import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
 import com.shivam.pillbox.extras.DeleteOldMedicinesTask;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineCursorAdapter;
-import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
+import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport;
 
 import java.util.Calendar;
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
 
         deleteOldMedicines();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButtonAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,12 +75,25 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
         adapter = new MedicineCursorAdapter(mContext, null);
         recyclerView.setAdapter(adapter);
         recyclerView.setEmptyView(emptyView);
-        recyclerView.addItemDecoration(new RecyclerViewItemDecorator(mContext, R.drawable.divider));
         recyclerView.addOnItemTouchListener(new RecyclerViewClickListener(this, new
                 RecyclerViewClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
+                        mCursor.moveToPosition(position);
+
                         Intent intent = new Intent(mContext, DetailsActivity.class);
+                        intent.putExtra("medId", mCursor.getString(MedicineColumns
+                                .MEDICINE_ID_INDEX));
+                        intent.putExtra("medName", mCursor.getString(MedicineColumns.NAME_INDEX));
+                        intent.putExtra("medFreq", mCursor.getInt(MedicineColumns
+                                .DAY_FREQUENCY_INDEX));
+                        intent.putExtra("medDose", mCursor.getFloat(MedicineColumns.DOSE_INDEX));
+                        intent.putExtra("medFoodMessage", mCursor.getString(MedicineColumns
+                                .MESSAGE_FOOD_INDEX));
+                        intent.putExtra("medFreeMessage", mCursor.getString(MedicineColumns
+                                .MESSAGE_FREE_INDEX));
+                        intent.putExtra("medColor", mCursor.getInt(MedicineColumns.COLOR_INDEX));
+
                         startActivity(intent);
                     }
                 }));

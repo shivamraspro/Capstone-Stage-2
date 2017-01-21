@@ -23,31 +23,38 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
         calendar.setTimeInMillis(System.currentTimeMillis());
         String time = calendar.getTimeInMillis() + "";
 
-        Cursor cursor = contexts[0].getContentResolver().query(MedicineProvider.Medicines
-                .CONTENT_URI,
-                new String[]{MedicineColumns._ID +""},
-                MedicineColumns.TIME_IN_MILLIS + " < ?",
-                new String[]{time},
-                null
-                );
+        Cursor cursor = null;
+        try {
+            cursor = contexts[0].getContentResolver().query(MedicineProvider.Medicines
+                            .CONTENT_URI,
+                    new String[]{MedicineColumns._ID},
+                    MedicineColumns.TIME_IN_MILLIS + " < ?",
+                    new String[]{time},
+                    null
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(cursor == null)
+            return null;
 
         ContentProviderOperation.Builder builder;
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ArrayList<String> idArrayList = new ArrayList<>();
 
-        while(cursor.moveToNext()) {
-            idArrayList.add(cursor.getLong(0)+"");
+        while (cursor.moveToNext()) {
+            idArrayList.add(cursor.getLong(0) + "");
         }
 
-        if(idArrayList.size() == 0)
+        if (idArrayList.size() == 0)
             return null;
 
         final int size = idArrayList.size();
-        String[] idArray = new String[size];
         String idArgs = "( ";
-        for(int i=0; i < size-1; i++)
-            idArgs += idArrayList.get(i)+", ";
-        idArgs += idArrayList.get(size-1) + " )";
+        for (int i = 0; i < size - 1; i++)
+            idArgs += idArrayList.get(i) + ", ";
+        idArgs += idArrayList.get(size - 1) + " )";
 
         builder = ContentProviderOperation.newDelete(MedicineProvider.Medicines.CONTENT_URI);
         builder.withSelection(MedicineColumns._ID + " IN " + idArgs, null);

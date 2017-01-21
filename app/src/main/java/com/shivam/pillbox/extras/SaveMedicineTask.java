@@ -37,6 +37,8 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
         ContentProviderOperation.Builder builder;
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
 
+        String medicineId = medicineProperties[0].getMedicineName() + calendar.getTimeInMillis();
+
         for (int key : medicineProperties[0].getMedicineTimes().keySet()) {
 
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -58,6 +60,7 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
 
+            builder.withValue(MedicineColumns.MEDICINE_ID, medicineId);
             builder.withValue(MedicineColumns.HOUR_OF_DAY, hourOfDay);
             builder.withValue(MedicineColumns.MINUTES, mins);
             builder.withValue(MedicineColumns.TIME_IN_MILLIS, calendar.getTimeInMillis());
@@ -67,6 +70,8 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
             builder.withValue(MedicineColumns.MESSAGE_FREE, medicineProperties[0].getFreeMessage());
             builder.withValue(MedicineColumns.SHAPE, medicineProperties[0].getShapeSelected());
             builder.withValue(MedicineColumns.COLOR, medicineProperties[0].getColorSelected());
+            builder.withValue(MedicineColumns.DAY_FREQUENCY, medicineProperties[0]
+                    .getMedicineReminderFrequency());
 
             batchOperations.add(builder.build());
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.shivam.pillbox.R;
+import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.ui.AddMedicationActivity;
 
 /**
@@ -16,12 +17,10 @@ import com.shivam.pillbox.ui.AddMedicationActivity;
  */
 
 public class ColorPalletteAdapter extends RecyclerView.Adapter<ColorPalletteAdapter.ViewHolder> {
-    private int[] colors;
     private Context context;
 
-    public ColorPalletteAdapter(Context context, int[] c) {
+    public ColorPalletteAdapter(Context context) {
         this.context = context;
-        colors = c;
     }
 
     // Create new views (invoked by the layout manager)
@@ -46,7 +45,8 @@ public class ColorPalletteAdapter extends RecyclerView.Adapter<ColorPalletteAdap
                     .scrim));
             AddMedicationActivity.oldView = holder.colorViewContainer;
         }
-        holder.colorView.setBackgroundColor(context.getResources().getColor(colors[position]));
+        holder.colorView.setBackgroundColor(context.getResources().getColor(Utility.getColorText
+                (position)));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

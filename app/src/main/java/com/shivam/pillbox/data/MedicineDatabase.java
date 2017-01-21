@@ -10,7 +10,7 @@ import net.simonvt.schematic.annotation.Table;
 @Database(version = MedicineDatabase.VERSION)
 public class MedicineDatabase {
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     @Table(MedicineColumns.class)
     public static final String MEDICINES = "medicines";

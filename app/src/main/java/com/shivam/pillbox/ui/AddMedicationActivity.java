@@ -144,10 +144,6 @@ public class AddMedicationActivity extends AppCompatActivity
 
     private HashMap<Integer, MedicineTime> medicineTimes;
 
-    public static int[] colors = {R.color.red_200, R.color.purple_200, R.color.indigo_200,
-            R.color.lightblue_200, R.color.green_200, R.color.yellow_200,
-            R.color.deeporange_200, R.color.brown_200};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,8 +186,8 @@ public class AddMedicationActivity extends AppCompatActivity
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         colorPalleteRV.setHasFixedSize(true);
-        colorPalleteRV.setLayoutManager(new GridLayoutManager(mContext, 4));
-        ColorPalletteAdapter adapter = new ColorPalletteAdapter(mContext, colors);
+        colorPalleteRV.setLayoutManager(new GridLayoutManager(mContext, 2));
+        ColorPalletteAdapter adapter = new ColorPalletteAdapter(mContext);
         colorPalleteRV.setAdapter(adapter);
         colorPalleteRV.addOnItemTouchListener(new RecyclerViewClickListener(mContext, new
                 RecyclerViewClickListener.OnItemClickListener() {
@@ -380,8 +376,7 @@ public class AddMedicationActivity extends AppCompatActivity
                 .setMessage(getString(R.string.add_medication_quit_dialog_text))
                 .setCancelable(true)
                 .setPositiveButton(getString(R.string.dialog_add_medication_quit_positive_button),
-                        new
-                                DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         AddMedicationActivity.this.finish();
                                     }

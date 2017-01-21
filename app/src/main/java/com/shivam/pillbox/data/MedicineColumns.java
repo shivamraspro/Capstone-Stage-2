@@ -71,6 +71,11 @@ public class MedicineColumns {
     @NotNull
     public static final String COLOR = "color";
 
+    //Number of times the medicine has to be taken in a day
+    @DataType(DataType.Type.INTEGER)
+    @NotNull
+    public static final String DAY_FREQUENCY = "day_frequency";
+
 
     //Columns array for faster query buildup
     public static final String[] ALL_COLUMNS = {
@@ -84,7 +89,8 @@ public class MedicineColumns {
             MESSAGE_FOOD,
             MESSAGE_FREE,
             SHAPE,
-            COLOR
+            COLOR,
+            DAY_FREQUENCY
     };
 
     //Columns Indices
@@ -99,5 +105,6 @@ public class MedicineColumns {
     public static final int MESSAGE_FREE_INDEX = 8;
     public static final int SHAPE_INDEX = 9;
     public static final int COLOR_INDEX = 10;
+    public static final int DAY_FREQUENCY_INDEX = 11;
 
 }

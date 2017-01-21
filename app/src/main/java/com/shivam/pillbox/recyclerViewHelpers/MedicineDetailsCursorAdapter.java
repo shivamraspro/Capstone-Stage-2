@@ -7,18 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.extras.Utility;
 
+import java.util.Calendar;
+
 /**
- * Created by shivam on 19/01/17.
+ * Created by shivam on 20/01/17.
  */
 
-public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCursorAdapter
+public class MedicineDetailsCursorAdapter extends CursorRecyclerViewAdapter<MedicineDetailsCursorAdapter
         .ViewHolder> {
 
     private static Context mContext;
@@ -31,23 +32,25 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
     private int colorIndex;
     private int shapeIndex;
     private float dose;
+    private String dayString;
 
-
-    public MedicineCursorAdapter(Context context, Cursor cursor) {
+    public MedicineDetailsCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         mContext = context;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MedicineDetailsCursorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view_item, parent, false);
-        ViewHolder vh = new ViewHolder(itemView);
+                .inflate(R.layout.recycler_view_details_item, parent, false);
+        MedicineDetailsCursorAdapter.ViewHolder vh = new MedicineDetailsCursorAdapter.ViewHolder
+                (itemView);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
+    public void onBindViewHolder(final MedicineDetailsCursorAdapter.ViewHolder viewHolder, final Cursor
+            cursor) {
 
         colorIndex = cursor.getInt(MedicineColumns.COLOR_INDEX);
         shapeIndex = cursor.getInt(MedicineColumns.SHAPE_INDEX);
@@ -59,15 +62,13 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
         viewHolder.medTime.setText(timeString);
         viewHolder.medAMPM.setText(ampmString);
 
-        viewHolder.medName.setText(cursor.getString(MedicineColumns.NAME_INDEX));
-        viewHolder.medName.setTextColor(mContext.getResources().getColor(Utility.getColorText(colorIndex)));
-
         generateDescString(cursor);
-
         viewHolder.medDesc.setText(descString);
+        viewHolder.medDesc.setTextColor(mContext.getResources().getColor(Utility.getColorText
+                (colorIndex)));
 
-        viewHolder.medInfoItem.setBackground(mContext.getResources().getDrawable
-                (Utility.getColorBackground(colorIndex)));
+        generateDayString(cursor.getLong(MedicineColumns.TIME_IN_MILLIS_INDEX));
+        viewHolder.medDay.setText(dayString);
     }
 
     @Override
@@ -79,9 +80,8 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
         public final ImageView medIcon;
         public final TextView medTime;
         public final TextView medAMPM;
-        public final TextView medName;
         public final TextView medDesc;
-        public final LinearLayout medInfoItem;
+        public final TextView medDay;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -89,9 +89,8 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
             medIcon = (ImageView) itemView.findViewById(R.id.med_icon);
             medTime = (TextView) itemView.findViewById(R.id.med_time);
             medAMPM = (TextView) itemView.findViewById(R.id.med_am_pm);
-            medName = (TextView) itemView.findViewById(R.id.med_name);
             medDesc = (TextView) itemView.findViewById(R.id.med_desc);
-            medInfoItem = (LinearLayout) itemView.findViewById(R.id.medicine_info);
+            medDay = (TextView) itemView.findViewById(R.id.med_day);
         }
     }
 
@@ -134,4 +133,10 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
             descString += ". " + freeMsg;
     }
 
+    private void generateDayString(long timeInMillis) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeInMillis);
+        dayString = Utility.getMonthName(calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar
+                .DAY_OF_MONTH);
+    }
 }

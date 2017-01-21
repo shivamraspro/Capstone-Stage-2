@@ -10,7 +10,7 @@
         android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/MainActivityTheme">
+            android:theme="@style/ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,14 +22,16 @@
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AddMedicationActivityTheme">
         </activity>
+        <activity
+            android:theme="@style/ActivityTheme"
+            android:parentActivityName=".ui.MainActivity"
+            android:name=".ui.DetailsActivity">
+        </activity>
 
         <provider
             android:name=".data.generated.MedicineProvider"
             android:authorities="com.shivam.pillbox.data.MedicineProvider"
             android:exported="false"/>
-
-        <activity android:name=".ui.DetailsActivity">
-        </activity>
     </application>
 
 </manifest>
