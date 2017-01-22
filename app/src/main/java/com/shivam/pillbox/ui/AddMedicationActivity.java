@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.extras.MedicineProperties;
@@ -193,6 +195,10 @@ public class AddMedicationActivity extends AppCompatActivity
         });
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

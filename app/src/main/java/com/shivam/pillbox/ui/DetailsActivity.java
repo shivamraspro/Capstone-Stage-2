@@ -21,10 +21,10 @@ import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
 import com.shivam.pillbox.extras.ContextAndId;
-import com.shivam.pillbox.tasks.DeleteCurrentMedicineTask;
 import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineDetailsCursorAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
+import com.shivam.pillbox.tasks.DeleteCurrentMedicineTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

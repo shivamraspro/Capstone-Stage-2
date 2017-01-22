@@ -14,14 +14,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
-import com.shivam.pillbox.tasks.DeleteOldMedicinesTask;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineCursorAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport;
+import com.shivam.pillbox.tasks.DeleteOldMedicinesTask;
 
 import java.util.Calendar;
 
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
         setupStetho();
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
     }
 
     private void setupStetho() {

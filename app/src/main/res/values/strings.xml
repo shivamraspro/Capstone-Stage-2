@@ -39,6 +39,7 @@
     <string name="default_selected_dosage_value">Take 1</string>
     <string name="empty_recycler_view_text">No medicines for today!</string>
     <string name="no_specific_instructions">No specific instructions</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>
