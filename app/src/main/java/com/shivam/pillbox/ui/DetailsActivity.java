@@ -92,13 +92,14 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
         else
             frequencyTextView.setText(getString(R.string.details_frequency_text_one));
 
-        float dose = (float) intent.getDoubleExtra("medDose", 1.00);
-        String descString;
-        if (((int) (dose * 100)) % 100 == 0)
-            descString = mContext.getString(R.string.selectedDoseStringInt, (int) dose);
-        else
-            descString = mContext.getString(R.string.selectedDoseString, dose);
+//        float dose = (float) intent.getDoubleExtra("medDose", 1.00);
+//        String descString;
+//        if (((int) (dose * 100)) % 100 == 0)
+//            descString = mContext.getString(R.string.selectedDoseStringInt, (int) dose);
+//        else
+//            descString = mContext.getString(R.string.selectedDoseString, dose);
 
+        String descString = getString(R.string.details_instructions_starting_text);
         descString += " " + intent.getStringExtra("medFoodMessage");
         String freeMsg = intent.getStringExtra("medFreeMessage");
         if (!freeMsg.equals(""))

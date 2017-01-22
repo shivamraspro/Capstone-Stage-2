@@ -61,21 +61,13 @@
         android:paddingStart="8dp"
         android:paddingTop="8dp">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/med_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:maxLines="1"
-                android:scrollHorizontally="true"
-                android:scrollbars="none"
-                android:textAppearance="?android:textAppearanceMedium"
-                tools:text="Crocin 100mg"/>
-        </HorizontalScrollView>
+        <TextView
+            android:id="@+id/med_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textAppearance="?android:textAppearanceMedium"
+            tools:text="Crocin 100mg"/>
 
 
         <TextView

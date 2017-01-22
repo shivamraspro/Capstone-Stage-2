@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
                         intent.putExtra("medName", mCursor.getString(MedicineColumns.NAME_INDEX));
                         intent.putExtra("medFreq", mCursor.getInt(MedicineColumns
                                 .DAY_FREQUENCY_INDEX));
-                        intent.putExtra("medDose", mCursor.getFloat(MedicineColumns.DOSE_INDEX));
                         intent.putExtra("medFoodMessage", mCursor.getString(MedicineColumns
                                 .MESSAGE_FOOD_INDEX));
                         intent.putExtra("medFreeMessage", mCursor.getString(MedicineColumns

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,11 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.shivam.pillbox.R;
-import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
 import com.shivam.pillbox.extras.MedicineProperties;
 import com.shivam.pillbox.extras.MedicineTime;
-import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 import com.shivam.pillbox.extras.SaveMedicineTask;
+import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
+import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -166,27 +167,12 @@ public class AddMedicationActivity extends AppCompatActivity
         reminderTimesSpinner.setOnItemSelectedListener(this);
 
         calendar.setTimeInMillis(System.currentTimeMillis());
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMins = calendar.get(Calendar.MINUTE);
-
-        String timeString = getTimeString(currentHour, currentMins);
-
-        //medicineTimes = new HashMap<>();
-        // medicineTimes.put(R.id.time_selector_1, new MedicineTime(currentHour, currentMins, 1
-        // .00f));
-
-        selectedTime1.setText(timeString);
-        selectedTime2.setText(timeString);
-        selectedTime3.setText(timeString);
-        selectedTime4.setText(timeString);
-        selectedTime5.setText(timeString);
-        selectedTime6.setText(timeString);
-        selectedTime7.setText(timeString);
+        bindLatestTimeOnTimeSelectorViews();
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         colorPalleteRV.setHasFixedSize(true);
-        colorPalleteRV.setLayoutManager(new GridLayoutManager(mContext, 2));
+        colorPalleteRV.setLayoutManager(new GridLayoutManager(mContext, 4));
         ColorPalletteAdapter adapter = new ColorPalletteAdapter(mContext);
         colorPalleteRV.setAdapter(adapter);
         colorPalleteRV.addOnItemTouchListener(new RecyclerViewClickListener(mContext, new
@@ -226,6 +212,7 @@ public class AddMedicationActivity extends AppCompatActivity
         MedicineTimePickerFragment timePickerFragment = new MedicineTimePickerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
+        bundle.putFloat("doseQty", medicineTimes.get(id).getDose());
         timePickerFragment.setArguments(bundle);
         timePickerFragment.show(getFragmentManager(), "timePicker");
     }
@@ -237,8 +224,13 @@ public class AddMedicationActivity extends AppCompatActivity
             medicineTimes.put(id, new MedicineTime(hour, mins, dose));
             bindTimeAndDosage(hour, mins, dose, id);
         } else {
-            medicineTimes.put(id, new MedicineTime(currentHour, currentMins, dose));
-            bindTimeAndDosage(currentHour, currentMins, dose, id);
+            hour = medicineTimes.get(id).getHourOfDay();
+            mins = medicineTimes.get(id).getMins();
+            medicineTimes.put(id, new MedicineTime(hour, mins, dose));
+            Log.d("xxx", medicineTimes.get(id).getHourOfDay() + " : " + medicineTimes.get(id).getMins() +
+                    "    " +
+                    medicineTimes.get(id).getDose());
+            bindTimeAndDosage(hour, mins, dose, id);
         }
     }
 
@@ -377,11 +369,26 @@ public class AddMedicationActivity extends AppCompatActivity
                 .setCancelable(true)
                 .setPositiveButton(getString(R.string.dialog_add_medication_quit_positive_button),
                         new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        AddMedicationActivity.this.finish();
-                                    }
-                                })
+                            public void onClick(DialogInterface dialog, int id) {
+                                AddMedicationActivity.this.finish();
+                            }
+                        })
                 .setNegativeButton(getString(R.string.dialog_time_picker_negative_button), null)
                 .show();
+    }
+
+    private void bindLatestTimeOnTimeSelectorViews() {
+        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        currentMins = calendar.get(Calendar.MINUTE);
+
+        String timeString = getTimeString(currentHour, currentMins);
+
+        selectedTime1.setText(timeString);
+        selectedTime2.setText(timeString);
+        selectedTime3.setText(timeString);
+        selectedTime4.setText(timeString);
+        selectedTime5.setText(timeString);
+        selectedTime6.setText(timeString);
+        selectedTime7.setText(timeString);
     }
 }

@@ -53,11 +53,12 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
         View view = inflater.inflate(R.layout.dialog_time_picker, container);
         ButterKnife.bind(this, view);
 
-        doseQuantity.setText("1.00");
-
         timePicker.setOnTimeChangedListener(this);
 
         id = getArguments().getInt("id");
+        doseQty = getArguments().getFloat("doseQty");
+
+        doseQuantity.setText(doseQty + "");
 
         hour = -1;
         mins = -1;
@@ -79,7 +80,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
                 );
                 break;
             case R.id.negative_button:
-                doseQty = 1.00f;
+                doseQty = getArguments().getFloat("doseQty");
                 //TODO error handling
                 ((TimePickerAndDosageDialogListener)getActivity()).getTimeAndDosage(
                         -1,

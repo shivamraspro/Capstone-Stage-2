@@ -27,7 +27,7 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
         try {
             cursor = contexts[0].getContentResolver().query(MedicineProvider.Medicines
                             .CONTENT_URI,
-                    new String[]{MedicineColumns._ID},
+                    new String[]{MedicineColumns._ID, MedicineColumns.DAY_FREQUENCY},
                     MedicineColumns.TIME_IN_MILLIS + " < ?",
                     new String[]{time},
                     null
@@ -43,9 +43,29 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         ArrayList<String> idArrayList = new ArrayList<>();
 
+        //code to update the frequency
+        builder = ContentProviderOperation.newUpdate(MedicineProvider.Medicines.CONTENT_URI);
+        while(cursor.moveToNext()) {
+            if(cursor.getInt(1) > 1)
+                builder.withValue(MedicineColumns.DAY_FREQUENCY, cursor.getInt(1) - 1);
+        }
+
+        try {
+            batchOperations.add(builder.build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //resetting the cursor
+        if(cursor.moveToFirst())
+          idArrayList.add(cursor.getLong(0) + "");
+
+        //code to delete the old alarms
         while (cursor.moveToNext()) {
             idArrayList.add(cursor.getLong(0) + "");
         }
+
+        //todo one more time?
 
         if (idArrayList.size() == 0)
             return null;
@@ -60,6 +80,7 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
         builder.withSelection(MedicineColumns._ID + " IN " + idArgs, null);
 
         batchOperations.add(builder.build());
+
         try {
             contexts[0].getContentResolver().applyBatch(MedicineProvider.AUTHORITY, batchOperations);
         } catch (Exception e) {

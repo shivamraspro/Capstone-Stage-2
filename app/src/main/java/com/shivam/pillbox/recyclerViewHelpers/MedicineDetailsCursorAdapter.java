@@ -127,10 +127,6 @@ public class MedicineDetailsCursorAdapter extends CursorRecyclerViewAdapter<Medi
             descString = mContext.getString(R.string.selectedDoseString, dose);
 
         descString += " " + cursor.getString(MedicineColumns.MESSAGE_FOOD_INDEX);
-
-        String freeMsg = cursor.getString(MedicineColumns.MESSAGE_FREE_INDEX);
-        if(!freeMsg.equals(""))
-            descString += ". " + freeMsg;
     }
 
     private void generateDayString(long timeInMillis) {

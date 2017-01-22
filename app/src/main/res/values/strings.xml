@@ -35,6 +35,8 @@
     <string name="delete_medicine_alert_dialog">All reminders of this medicine will be deleted. Continue?</string>
     <string name="delete_medicine_alert_dialog_positive_button">Yes</string>
     <string name="details_upcoming_title">Upcoming reminders :</string>
+    <string name="details_instructions_starting_text">Take</string>
+    <string name="default_selected_dosage_value">Take 1</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>

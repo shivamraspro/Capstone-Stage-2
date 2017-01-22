@@ -126,8 +126,8 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
             descString = mContext.getString(R.string.selectedDoseStringInt, (int) dose);
         else
             descString = mContext.getString(R.string.selectedDoseString, dose);
-
         descString += " " + cursor.getString(MedicineColumns.MESSAGE_FOOD_INDEX);
+
 
         String freeMsg = cursor.getString(MedicineColumns.MESSAGE_FREE_INDEX);
         if(!freeMsg.equals(""))
