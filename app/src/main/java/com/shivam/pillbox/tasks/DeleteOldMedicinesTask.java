@@ -1,12 +1,14 @@
-package com.shivam.pillbox.extras;
+package com.shivam.pillbox.tasks;
 
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
+import com.shivam.pillbox.extras.Utility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +20,8 @@ import java.util.Calendar;
 public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
     @Override
     protected Void doInBackground(Context... contexts) {
+
+        Log.e("xxx", "Delete Old Medicines Start");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -56,16 +60,13 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
             e.printStackTrace();
         }
 
+        //code to delete the old alarms
         //resetting the cursor
         if(cursor.moveToFirst())
           idArrayList.add(cursor.getLong(0) + "");
-
-        //code to delete the old alarms
         while (cursor.moveToNext()) {
             idArrayList.add(cursor.getLong(0) + "");
         }
-
-        //todo one more time?
 
         if (idArrayList.size() == 0)
             return null;
@@ -81,11 +82,15 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
 
         batchOperations.add(builder.build());
 
+        Utility.updateWidgets(contexts[0]);
+
         try {
             contexts[0].getContentResolver().applyBatch(MedicineProvider.AUTHORITY, batchOperations);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Log.e("xxx", "Delete Old Medicines Successful");
 
         return null;
     }

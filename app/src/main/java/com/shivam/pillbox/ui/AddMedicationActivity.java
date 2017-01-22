@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.extras.MedicineProperties;
 import com.shivam.pillbox.extras.MedicineTime;
-import com.shivam.pillbox.extras.SaveMedicineTask;
+import com.shivam.pillbox.tasks.SaveMedicineTask;
 import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 

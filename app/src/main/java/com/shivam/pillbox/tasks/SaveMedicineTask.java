@@ -1,15 +1,22 @@
-package com.shivam.pillbox.extras;
+package com.shivam.pillbox.tasks;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentProviderOperation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.RemoteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
+import com.shivam.pillbox.extras.MedicineProperties;
+import com.shivam.pillbox.extras.Utility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,10 +26,16 @@ import java.util.Random;
  * Created by shivam on 18/01/17.
  */
 
-public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Context> {
+public class SaveMedicineTask extends AsyncTask<MedicineProperties, Void, Void> {
+
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private Context mContext;
 
     @Override
-    protected Context doInBackground(MedicineProperties... medicineProperties) {
+    protected Void doInBackground(MedicineProperties... medicineProperties) {
+
+        mContext = medicineProperties[0].getContext();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -45,8 +58,8 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
 
             builder = ContentProviderOperation.newInsert(MedicineProvider.Medicines.CONTENT_URI);
 
-            builder.withValue(MedicineColumns._ID,
-                    r.nextInt((int)(calendar.getTimeInMillis()%9999991) - 1) + 1);
+            int _id = r.nextInt((int) (calendar.getTimeInMillis() % 9999991) - 1) + 1;
+            builder.withValue(MedicineColumns._ID, _id);
 
             hourOfDay = medicineProperties[0].getMedicineTimes().get(key).getHourOfDay();
             mins = medicineProperties[0].getMedicineTimes().get(key).getMins();
@@ -74,6 +87,20 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
                     .getMedicineReminderFrequency());
 
             batchOperations.add(builder.build());
+
+            //code to set an alarm
+            alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(mContext, ShowNotification.class);
+            intent.putExtra("_id", _id);
+            pendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+            Log.e("xxx", "Alarm Set Success");
+            Utility.updateWidgets(mContext);
         }
 
         try {
@@ -85,12 +112,12 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties ,Void, Contex
             e.printStackTrace();
         }
 
-        return medicineProperties[0].getContext();
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Context context) {
-        Toast.makeText(context, context.getString(R.string.medicine_saved_success), Toast
+    protected void onPostExecute(Void aVoid) {
+        Toast.makeText(mContext, mContext.getString(R.string.medicine_saved_success), Toast
                 .LENGTH_SHORT).show();
     }
 }

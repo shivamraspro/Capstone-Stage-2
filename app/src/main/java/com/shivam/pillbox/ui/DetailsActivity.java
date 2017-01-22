@@ -21,7 +21,7 @@ import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
 import com.shivam.pillbox.extras.ContextAndId;
-import com.shivam.pillbox.extras.DeleteCurrentMedicineTask;
+import com.shivam.pillbox.tasks.DeleteCurrentMedicineTask;
 import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineDetailsCursorAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
@@ -92,18 +92,21 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
         else
             frequencyTextView.setText(getString(R.string.details_frequency_text_one));
 
-//        float dose = (float) intent.getDoubleExtra("medDose", 1.00);
-//        String descString;
-//        if (((int) (dose * 100)) % 100 == 0)
-//            descString = mContext.getString(R.string.selectedDoseStringInt, (int) dose);
-//        else
-//            descString = mContext.getString(R.string.selectedDoseString, dose);
-
-        String descString = getString(R.string.details_instructions_starting_text);
-        descString += " " + intent.getStringExtra("medFoodMessage");
+        String descString = "";
+        String foodMsg = intent.getStringExtra("medFoodMessage");
+        if (!foodMsg.equals("")) {
+            descString = getString(R.string.details_instructions_starting_text);
+            descString += " " + foodMsg;
+        }
         String freeMsg = intent.getStringExtra("medFreeMessage");
-        if (!freeMsg.equals(""))
-            descString += ". " + freeMsg;
+        if (!foodMsg.equals("") && !freeMsg.equals(""))
+            if (!freeMsg.equals(""))
+                if (!foodMsg.equals(""))
+                    descString += ". " + freeMsg;
+                else
+                    descString = freeMsg;
+        else
+            descString = getString(R.string.no_specific_instructions);
 
         instructionsTextView.setText(descString);
 

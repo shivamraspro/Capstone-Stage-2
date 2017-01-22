@@ -1,4 +1,4 @@
-package com.shivam.pillbox.extras;
+package com.shivam.pillbox.tasks;
 
 import android.content.ContentProviderOperation;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
+import com.shivam.pillbox.extras.ContextAndId;
+import com.shivam.pillbox.extras.Utility;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,8 @@ public class DeleteCurrentMedicineTask extends AsyncTask<ContextAndId, Void, Con
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Utility.updateWidgets(context);
 
         return context;
     }

@@ -17,7 +17,7 @@ import com.facebook.stetho.Stetho;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
-import com.shivam.pillbox.extras.DeleteOldMedicinesTask;
+import com.shivam.pillbox.tasks.DeleteOldMedicinesTask;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineCursorAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport;

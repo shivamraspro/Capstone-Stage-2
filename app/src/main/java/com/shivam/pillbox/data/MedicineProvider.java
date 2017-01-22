@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
+import net.simonvt.schematic.annotation.InexactContentUri;
 import net.simonvt.schematic.annotation.TableEndpoint;
 
 /**
@@ -38,16 +39,16 @@ public class MedicineProvider {
         )
         public static final Uri CONTENT_URI = buildUri(Path.MEDICINES);
 
-//        @InexactContentUri(
-//                name = "QUOTE_SYMBOL",
-//                path = Path.MEDICINES + "/*",
-//                type = "vnd.android.cursor.item/medicines",
-//                whereColumn = MedicineColumns._ID,
-//                pathSegment = 1
-//        )
-//        public static Uri withId(Long ID) {
-//            return buildUri(Path.MEDICINES, ID + "");
-//        }
+        @InexactContentUri(
+                name = "MED_ID",
+                path = Path.MEDICINES + "/#",
+                type = "vnd.android.cursor.item/medicines",
+                whereColumn = MedicineColumns._ID,
+                pathSegment = 1
+        )
+        public static Uri withId(int ID) {
+            return buildUri(Path.MEDICINES, ID + "");
+        }
 
 //        @ContentUri(
 //                path = Path.MEDICINES,
