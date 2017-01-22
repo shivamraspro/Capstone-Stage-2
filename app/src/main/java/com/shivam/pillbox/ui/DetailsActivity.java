@@ -99,14 +99,14 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
             descString += " " + foodMsg;
         }
         String freeMsg = intent.getStringExtra("medFreeMessage");
-        if (!foodMsg.equals("") && !freeMsg.equals(""))
-            if (!freeMsg.equals(""))
-                if (!foodMsg.equals(""))
-                    descString += ". " + freeMsg;
-                else
-                    descString = freeMsg;
-        else
+        if (foodMsg.equals("") && freeMsg.equals(""))
             descString = getString(R.string.no_specific_instructions);
+        else {
+            if (!foodMsg.equals(""))
+                descString += ". " + freeMsg;
+            else
+                descString = freeMsg;
+        }
 
         instructionsTextView.setText(descString);
 

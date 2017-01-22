@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "128062865832",
+    "firebase_url": "https://pillbox-6da0c.firebaseio.com",
+    "project_id": "pillbox-6da0c",
+    "storage_bucket": "pillbox-6da0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128062865832:android:3499a6bf55e5fd97",
+        "android_client_info": {
+          "package_name": "com.shivam.pillbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128062865832-3igaoq6lcapehs70e16p11q34aonsf5g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shivam.pillbox",
+            "certificate_hash": "0738CF40DF09DA36625C7421F9CEB69FEE9F28C6"
+          }
+        },
+        {
+          "client_id": "128062865832-0378b78r8i1ikg9d7coghhl3nqtqap1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4BaC0nw85WUxDphkicU-048HcuQ6oTlY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128062865832-0378b78r8i1ikg9d7coghhl3nqtqap1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

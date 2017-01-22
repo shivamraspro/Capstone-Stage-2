@@ -22,12 +22,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.extras.MedicineProperties;
 import com.shivam.pillbox.extras.MedicineTime;
-import com.shivam.pillbox.tasks.SaveMedicineTask;
 import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
+import com.shivam.pillbox.tasks.SaveMedicineTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -145,6 +146,8 @@ public class AddMedicationActivity extends AppCompatActivity
 
     private HashMap<Integer, MedicineTime> medicineTimes;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,6 +191,8 @@ public class AddMedicationActivity extends AppCompatActivity
                     }
                 }) {
         });
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
     }
 
     @Override
@@ -354,6 +359,14 @@ public class AddMedicationActivity extends AppCompatActivity
                 shapeSelected,
                 colorSelected
         ));
+
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("day_frequency", medicineReminderFrequency);
+        bundle.putInt("shape", shapeSelected);
+        bundle.putInt("color", colorSelected);
+
+        mFirebaseAnalytics.logEvent("add_medicine", bundle);
 
         AddMedicationActivity.this.finish();
     }

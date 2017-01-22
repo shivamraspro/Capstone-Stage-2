@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.stetho.Stetho;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
     private String[] weekNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday"};
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,10 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, AddMedicationActivity.class);
                 startActivity(intent);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("new_medicine", 1);
+                mFirebaseAnalytics.logEvent("add_medicine", bundle);
             }
         });
 
@@ -117,6 +124,8 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
         setupStetho();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
     }
 
     private void setupStetho() {
