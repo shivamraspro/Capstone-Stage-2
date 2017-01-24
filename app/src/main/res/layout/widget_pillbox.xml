@@ -43,8 +43,9 @@
             android:id="@+id/empty_view_widget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/grey_700"
+            android:textColor="@color/grey_500"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="@string/empty_recycler_view_text"
             android:textAppearance="?android:textAppearanceMedium"/>
 
