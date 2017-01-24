@@ -40,7 +40,7 @@ public class PillBoxWidgetProvider extends AppWidgetProvider {
             // The empty view is displayed when the collection has no items.
             // It should be in the same layout used to instantiate the RemoteViews
             // object above.
-            rv.setEmptyView(R.id.pillbox_listview, R.id.empty_view);
+            rv.setEmptyView(R.id.pillbox_listview, R.id.empty_view_widget);
 
             // Create an Intent to launch MainActivity
             Intent pIntent = new Intent(context, MainActivity.class);

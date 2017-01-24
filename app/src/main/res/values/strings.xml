@@ -1,5 +1,5 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="app_name">APillBox</string>
+    <string name="app_name">PillBox</string>
     <string name="add_medication_activity_title">Add Medication</string>
     <string name="medication_name_title">Medication Name</string>
     <string name="medication_name_hint">Type active ingredient/brand name</string>

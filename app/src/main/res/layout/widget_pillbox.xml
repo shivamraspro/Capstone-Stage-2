@@ -40,9 +40,10 @@
             tools:listitem="@layout/widget_list_item"/>
 
         <TextView
-            android:id="@+id/empty_view"
+            android:id="@+id/empty_view_widget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/grey_700"
             android:gravity="center"
             android:text="@string/empty_recycler_view_text"
             android:textAppearance="?android:textAppearanceMedium"/>

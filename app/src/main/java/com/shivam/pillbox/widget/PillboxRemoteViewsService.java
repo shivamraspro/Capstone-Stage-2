@@ -9,14 +9,12 @@ import android.widget.RemoteViewsService;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
+import com.shivam.pillbox.extras.Utility;
 
 import java.util.Calendar;
 
 public class PillBoxRemoteViewsService extends RemoteViewsService {
-
-    int[] bgColors = {R.color.red_50,R.color.purple_50, R.color.indigo_50, R.color.lightblue_50,
-            R.color.green_50, R.color.yellow_50, R.color.deeporange_50, R.color.brown_50};
-
+    
     @Override
     public RemoteViewsFactory onGetViewFactory(final Intent intent) {
         return new RemoteViewsFactory() {
@@ -35,20 +33,6 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onCreate() {
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTimeInMillis(System.currentTimeMillis());
-//                calendar.set(Calendar.HOUR_OF_DAY, 23);
-//                calendar.set(Calendar.MINUTE, 59);
-//                calendar.set(Calendar.SECOND, 59);
-//                midnightTime = calendar.getTimeInMillis() + "";
-
-//                cursor = getContentResolver().query(
-//                        QuoteProvider.Quotes.CONTENT_URI,
-//                        QUOTE_COLUMNS,
-//                        null,
-//                        null,
-//                        QuoteColumns._ID + " desc"
-//                );
 
             }
 
@@ -108,11 +92,12 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
                 view.setTextViewText(R.id.med_desc_widget, descString);
                 view.setTextViewText(R.id.med_name_widget, cursor.getString(MedicineColumns.NAME_INDEX));
 
-//                view.setInt(R.id.medicine_info_widget, "setBackground", bgColors[colorIndex]);
-//                view.setInt(R.id.med_icon_widget, "setImageDrawable", getPillDrawable
-//                        (shapeIndex, colorIndex));
-//                view.setInt(R.id.med_name_widget, "setTextColor", getColorText
-//                        (colorIndex));
+                view.setInt(R.id.medicine_info_widget, "setBackgroundResource",
+                        Utility.getColorBackground(colorIndex));
+                view.setInt(R.id.med_icon_widget, "setImageResource",
+                        Utility.getPillDrawable(shapeIndex, colorIndex));
+                view.setInt(R.id.med_name_widget, "setTextColor",
+                        getApplicationContext().getResources().getColor(Utility.getColorText(colorIndex)));
 
                 final Intent fillInIntent = new Intent();
                 fillInIntent.putExtra("medId", cursor.getString(MedicineColumns
@@ -191,96 +176,5 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
             }
 
         };
-
-
-    }
-
-    public int getColorBackground(int c) {
-        switch (c) {
-            case 0:
-                return R.color.red_50;
-            case 1:
-                return R.color.purple_50;
-            case 2:
-                return R.color.indigo_50;
-            case 3:
-                return R.color.lightblue_50;
-            case 4:
-                return R.color.green_50;
-            case 5:
-                return R.color.yellow_50;
-            case 6:
-                return R.color.deeporange_50;
-            case 7:
-                return R.color.brown_50;
-        }
-        return -1;
-    }
-
-    public int getColorText(int c) {
-        switch (c) {
-            case 0:
-                return R.color.red_700;
-            case 1:
-                return R.color.purple_700;
-            case 2:
-                return R.color.indigo_700;
-            case 3:
-                return R.color.lightblue_700;
-            case 4:
-                return R.color.green_700;
-            case 5:
-                return R.color.yellow_800;
-            case 6:
-                return R.color.deeporange_700;
-            case 7:
-                return R.color.brown_700;
-        }
-        return -1;
-    }
-
-
-    public int getPillDrawable(int s, int c) {
-        switch (s) {
-            case 0:
-                switch (c) {
-                    case 0:
-                        return R.drawable.ic_circle_red;
-                    case 1:
-                        return R.drawable.ic_circle_purple;
-                    case 2:
-                        return R.drawable.ic_circle_indigo;
-                    case 3:
-                        return R.drawable.ic_circle_lightblue;
-                    case 4:
-                        return R.drawable.ic_circle_green;
-                    case 5:
-                        return R.drawable.ic_circle_yellow;
-                    case 6:
-                        return R.drawable.ic_circle_deeporange;
-                    case 7:
-                        return R.drawable.ic_circle_brown;
-                }
-            case 1:
-                switch (c) {
-                    case 0:
-                        return R.drawable.ic_rect_red;
-                    case 1:
-                        return R.drawable.ic_rect_purple;
-                    case 2:
-                        return R.drawable.ic_rect_indigo;
-                    case 3:
-                        return R.drawable.ic_rect_lightblue;
-                    case 4:
-                        return R.drawable.ic_rect_green;
-                    case 5:
-                        return R.drawable.ic_rect_yellow;
-                    case 6:
-                        return R.drawable.ic_rect_deeporange;
-                    case 7:
-                        return R.drawable.ic_rect_brown;
-                }
-        }
-        return -1;
     }
 }

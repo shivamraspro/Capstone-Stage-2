@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
+import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineCursorAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport;
@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
     private String[] weekNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday"};
 
-    private FirebaseAnalytics mFirebaseAnalytics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +70,6 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, AddMedicationActivity.class);
                 startActivity(intent);
-
-                Bundle bundle = new Bundle();
-                bundle.putInt("new_medicine", 1);
-                mFirebaseAnalytics.logEvent("add_medicine", bundle);
             }
         });
 
@@ -126,9 +120,9 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
 
         setupStetho();
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
-
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+
+        Utility.updateWidgets(mContext);
     }
 
     private void setupStetho() {
