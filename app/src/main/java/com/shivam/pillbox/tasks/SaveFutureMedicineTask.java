@@ -21,6 +21,8 @@ import java.util.Random;
 
 public class SaveFutureMedicineTask extends AsyncTask<MedicineProperties, Void, Void> {
 
+    //Save medicines for the days after the first day
+
     private Context mContext;
 
     @Override
