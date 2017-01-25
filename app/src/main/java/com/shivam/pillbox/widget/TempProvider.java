@@ -14,16 +14,16 @@ import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.ui.DetailsActivity;
 import com.shivam.pillbox.ui.MainActivity;
 
-public class PillBoxWidgetProvider extends AppWidgetProvider {
+public class TempProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         for (int appWidgetId : appWidgetIds) {
 
-            // Set up the intent that starts the PillBoxRemoteViewsService, which will
+            // Set up the intent that starts the TempService, which will
             // provide the views for this collection.
-            Intent intent = new Intent(context, PillBoxRemoteViewsService.class);
+            Intent intent = new Intent(context, TempService.class);
 
             // Add the app widget ID to the intent extras.
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

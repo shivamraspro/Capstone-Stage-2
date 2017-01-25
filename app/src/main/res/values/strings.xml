@@ -61,6 +61,8 @@
     <string name="plus_cd">plus point two five</string>
     <string name="minus_cd">minus point two five</string>
     <string name="dosage_cd">Enter dosage value</string>
+    <string name="pill_shape_cd">Select pill shape</string>
+    <string name="pill_color_cd">Select pill color</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>
