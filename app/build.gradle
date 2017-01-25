@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'master'
             keyPassword 'password'
-            storeFile file('/Users/shivam/AndroidStudioProjects/PillBox/keystore.jks')
+            storeFile file("../keystore.jks")
             storePassword 'password'
         }
     }
