@@ -1,15 +1,20 @@
 package com.shivam.pillbox.ui;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.transition.Fade;
+import android.transition.Transition;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,7 +34,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity  implements LoaderManager
+public class MainActivity extends AppCompatActivity implements LoaderManager
         .LoaderCallbacks<Cursor> {
 
     @BindView(R.id.recyler_view)
@@ -45,12 +50,13 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
     TextView todayDay;
 
     private Context mContext;
+    private Activity mActivity;
     private MedicineCursorAdapter adapter;
     private static final int CURSOR_LOADER_ID = 0;
     private Cursor mCursor;
     private String midnightTime;
     private String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-    "Oct", "Nov", "Dec"};
+            "Oct", "Nov", "Dec"};
     private String[] weekNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
             "Saturday"};
 
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
         ButterKnife.bind(this);
 
         mContext = this;
+        mActivity = this;
 
         deleteOldMedicines();
 
@@ -69,7 +76,12 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, AddMedicationActivity.class);
-                startActivity(intent);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(mActivity)
+                            .toBundle();
+                    mContext.startActivity(intent, bundle);
+                } else
+                    startActivity(intent);
             }
         });
 
@@ -95,7 +107,12 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
                                 .MESSAGE_FREE_INDEX));
                         intent.putExtra("medColor", mCursor.getInt(MedicineColumns.COLOR_INDEX));
 
-                        startActivity(intent);
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(mActivity)
+                                    .toBundle();
+                            mContext.startActivity(intent, bundle);
+                        } else
+                            startActivity(intent);
                     }
                 }));
 
@@ -123,6 +140,26 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 
         Utility.updateWidgets(mContext);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition mainExit = new Fade(Fade.OUT);
+            Transition mainReenter = new Fade(Fade.IN);
+            mainExit.setDuration(250);
+
+            mainExit.excludeTarget(R.id.floatingActionButtonAdd, true);
+            mainExit.excludeTarget(android.R.id.statusBarBackground, true);
+            mainExit.excludeTarget(android.R.id.navigationBarBackground, true);
+            mainExit.excludeTarget(R.id.toolbar_main, true);
+
+            mainReenter.excludeTarget(R.id.floatingActionButtonAdd, true);
+            mainReenter.excludeTarget(android.R.id.statusBarBackground, true);
+            mainReenter.excludeTarget(android.R.id.navigationBarBackground, true);
+            mainReenter.excludeTarget(R.id.toolbar_main, true);
+
+            getWindow().setExitTransition(mainExit);
+            getWindow().setReenterTransition(mainReenter);
+        }
     }
 
     private void setupStetho() {

@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.Transition;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -145,6 +148,27 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
                         v.setSelected(true);
                     }
                 }));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition detailsEnter = new Fade(Fade.IN);
+            Transition detailsReturn = new Fade(Fade.OUT);
+
+            detailsEnter.setDuration(250);
+            detailsReturn.setDuration(250);
+
+            detailsEnter.excludeTarget(android.R.id.statusBarBackground, true);
+            detailsEnter.excludeTarget(android.R.id.navigationBarBackground, true);
+            detailsEnter.excludeTarget(R.id.floatingActionButtonDelete, true);
+            detailsEnter.excludeTarget(R.id.toolbar_details, true);
+
+            detailsReturn.excludeTarget(android.R.id.statusBarBackground, true);
+            detailsReturn.excludeTarget(android.R.id.navigationBarBackground, true);
+            detailsReturn.excludeTarget(R.id.floatingActionButtonDelete, true);
+            detailsReturn.excludeTarget(R.id.toolbar_details, true);
+
+            getWindow().setEnterTransition(detailsEnter);
+            getWindow().setReturnTransition(detailsReturn);
+        }
     }
 
     public void onClickBackButton(View view) {

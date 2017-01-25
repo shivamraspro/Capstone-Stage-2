@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -199,6 +202,23 @@ public class AddMedicationActivity extends AppCompatActivity
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition amEnter = new Slide();
+            Transition amReturn = new Slide();
+
+            amEnter.setDuration(250);
+            amReturn.setDuration(250);
+
+            amEnter.excludeTarget(android.R.id.statusBarBackground, true);
+            amEnter.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            amReturn.excludeTarget(android.R.id.statusBarBackground, true);
+            amReturn.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            getWindow().setEnterTransition(amEnter);
+            getWindow().setReturnTransition(amReturn);
+        }
     }
 
     @Override
