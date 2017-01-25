@@ -13,7 +13,7 @@ import com.shivam.pillbox.extras.Utility;
 
 import java.util.Calendar;
 
-public class TempService extends RemoteViewsService {
+public class PillBoxRemoteViewsService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(final Intent intent) {
