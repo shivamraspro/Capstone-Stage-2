@@ -40,7 +40,7 @@ public class ColorPalletteAdapter extends RecyclerView.Adapter<ColorPalletteAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        if(position == 0) {
+        if (position == 0) {
             holder.colorViewContainer.setBackground(context.getResources().getDrawable(R.drawable
                     .scrim));
             AddMedicationActivity.oldView = holder.colorViewContainer;

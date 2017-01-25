@@ -14,7 +14,7 @@ import com.shivam.pillbox.extras.Utility;
 import java.util.Calendar;
 
 public class PillBoxRemoteViewsService extends RemoteViewsService {
-    
+
     @Override
     public RemoteViewsFactory onGetViewFactory(final Intent intent) {
         return new RemoteViewsFactory() {
@@ -38,7 +38,7 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onDataSetChanged() {
-                if(cursor != null)
+                if (cursor != null)
                     cursor.close();
 
                 Calendar calendar = Calendar.getInstance();
@@ -59,10 +59,10 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onDestroy() {
-                 if(cursor != null) {
-                     cursor.close();
-                     cursor = null;
-                 }
+                if (cursor != null) {
+                    cursor.close();
+                    cursor = null;
+                }
             }
 
             @Override
@@ -171,7 +171,7 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
 
 
                 String freeMsg = cursor.getString(MedicineColumns.MESSAGE_FREE_INDEX);
-                if(!freeMsg.equals(""))
+                if (!freeMsg.equals(""))
                     descString += ". " + freeMsg;
             }
 

@@ -40,6 +40,27 @@
     <string name="empty_recycler_view_text">No medicines for today!</string>
     <string name="no_specific_instructions">No specific instructions</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="medication_period_title">Medication Period</string>
+    <string name="one_day_period_string">1 day</string>
+    <string name="one_week_period_string">1 week</string>
+    <string name="one_month_period_string">1 month</string>
+    <string name="three_months_period_string">3 months</string>
+    <string name="no_medicines_cd">No medicines for today. Click Add Medicine Button to add a medicine</string>
+    <string name="add_medicine_cd">Add medicine button</string>
+    <string name="quit_cd">Quit adding medicine button</string>
+    <string name="save_medicine_cd">Save Medicine button</string>
+    <string name="medicine_name_cd">Enter Medicine Name</string>
+    <string name="reminder_times_cd">Select reminder times</string>
+    <string name="medicine_period_cd">Select Medicine period</string>
+    <string name="medicine_message_cd">Enter medicine message</string>
+    <string name="free_message_cd">Enter general description about medicine</string>
+    <string name="delete_medicine_button_cd">Delete medicine button</string>
+    <string name="back_button_cd">Back button</string>
+    <string name="dialog_time_picker_negative_button_cd">Close dialog</string>
+    <string name="dialog_time_picker_positive_button_cd">Set Time And dosage</string>
+    <string name="plus_cd">plus point two five</string>
+    <string name="minus_cd">minus point two five</string>
+    <string name="dosage_cd">Enter dosage value</string>
 
     <string-array name="reminder_times_array">
         <item>Once a day</item>

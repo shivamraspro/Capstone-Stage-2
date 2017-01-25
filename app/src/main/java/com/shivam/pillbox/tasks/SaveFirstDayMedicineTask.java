@@ -1,15 +1,10 @@
 package com.shivam.pillbox.tasks;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentProviderOperation;
 import android.content.Context;
-import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.RemoteException;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.shivam.pillbox.R;
@@ -26,14 +21,12 @@ import java.util.Random;
  * Created by shivam on 18/01/17.
  */
 
-public class SaveMedicineTask extends AsyncTask<MedicineProperties, Void, Void> {
+public class SaveFirstDayMedicineTask extends AsyncTask<MedicineProperties, Void, MedicineProperties> {
 
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
     private Context mContext;
 
     @Override
-    protected Void doInBackground(MedicineProperties... medicineProperties) {
+    protected MedicineProperties doInBackground(MedicineProperties... medicineProperties) {
 
         mContext = medicineProperties[0].getContext();
 
@@ -88,18 +81,6 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties, Void, Void> 
 
             batchOperations.add(builder.build());
 
-            //code to set an alarm
-            alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(mContext, ShowNotification.class);
-            intent.putExtra("_id", _id);
-            pendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-            Log.e("xxx", "Alarm Set Success");
             Utility.updateWidgets(mContext);
         }
 
@@ -112,12 +93,16 @@ public class SaveMedicineTask extends AsyncTask<MedicineProperties, Void, Void> 
             e.printStackTrace();
         }
 
-        return null;
+        medicineProperties[0].setMedID(medicineId);
+
+        return medicineProperties[0];
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
+    protected void onPostExecute(MedicineProperties medicineProperties) {
         Toast.makeText(mContext, mContext.getString(R.string.medicine_saved_success), Toast
                 .LENGTH_SHORT).show();
+
+        new SaveFutureMedicineTask().execute(medicineProperties);
     }
 }

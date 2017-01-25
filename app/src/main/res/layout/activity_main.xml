@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -50,17 +50,19 @@
             <com.shivam.pillbox.recyclerViewHelpers.RecyclerViewEmptyViewSupport
                 android:id="@+id/recyler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:contentDescription="@string/upcoming_medicines_text"/>
 
             <TextView
                 android:id="@+id/empty_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/grey_500"
+                android:contentDescription="@string/no_medicines_cd"
                 android:text="@string/empty_recycler_view_text"
-                android:textAppearance="?android:textAppearanceMedium"/>
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/grey_500"
+                android:textStyle="bold"/>
 
         </FrameLayout>
 
@@ -69,10 +71,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:textColor="@color/grey_900"
             android:layout_marginTop="8dp"
             android:text="Jan 15"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@color/grey_900"/>
 
         <TextView
             android:id="@+id/today_day"
@@ -80,8 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:text="Sunday"
-            android:textColor="@color/grey_700"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/grey_700"/>
 
     </LinearLayout>
 
@@ -93,6 +95,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:clickable="true"
+        android:contentDescription="@string/add_medicine_cd"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_list_add"/>
 

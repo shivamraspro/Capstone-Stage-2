@@ -40,7 +40,7 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
             e.printStackTrace();
         }
 
-        if(cursor == null)
+        if (cursor == null)
             return null;
 
         ContentProviderOperation.Builder builder;
@@ -49,8 +49,8 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
 
         //code to update the frequency
         builder = ContentProviderOperation.newUpdate(MedicineProvider.Medicines.CONTENT_URI);
-        while(cursor.moveToNext()) {
-            if(cursor.getInt(1) > 1)
+        while (cursor.moveToNext()) {
+            if (cursor.getInt(1) > 1)
                 builder.withValue(MedicineColumns.DAY_FREQUENCY, cursor.getInt(1) - 1);
         }
 
@@ -62,8 +62,8 @@ public class DeleteOldMedicinesTask extends AsyncTask<Context, Void, Void> {
 
         //code to delete the old alarms
         //resetting the cursor
-        if(cursor.moveToFirst())
-          idArrayList.add(cursor.getLong(0) + "");
+        if (cursor.moveToFirst())
+            idArrayList.add(cursor.getLong(0) + "");
         while (cursor.moveToNext()) {
             idArrayList.add(cursor.getLong(0) + "");
         }

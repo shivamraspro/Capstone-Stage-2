@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/add_medication_coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_medication_coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,40 +20,42 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/quit_cd"
                     android:onClick="createClosingDialog"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
                     app:srcCompat="@drawable/ic_cross"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/add_medication_activity_title"
                     android:textAppearance="?android:textAppearanceLarge"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:padding="16dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:textAppearanceSmall"
-                    android:textAllCaps="true"
-                    android:onClick="saveMedication"
-                    android:textStyle="bold"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:contentDescription="@string/save_medicine_cd"
+                    android:onClick="saveMedication"
+                    android:padding="16dp"
+                    android:text="@string/button_text"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/white"
-                    android:text="@string/button_text"/>
+                    android:textStyle="bold"/>
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -106,8 +108,9 @@
                         style="@style/CardViewEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
+                        android:contentDescription="@string/medicine_name_cd"
                         android:ellipsize="end"
+                        android:ems="10"
                         android:hint="@string/medication_name_hint"
                         android:imeOptions="actionDone"
                         android:inputType="textNoSuggestions"/>
@@ -137,14 +140,6 @@
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:text="@string/reminder_times_title"/>
 
-                    <!--<Switch-->
-                        <!--android:id="@+id/reminder_times_switch"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentEnd="true"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:checked="true"/>-->
-
                     <TextView
                         android:id="@+id/no_reminders_text"
                         style="@style/CardViewSecondaryText"
@@ -160,6 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/reminder_times_title"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:contentDescription="@string/reminder_times_cd"
                         android:entries="@array/reminder_times_array"
                         android:spinnerMode="dialog"/>
 
@@ -404,15 +400,86 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/medication_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:contentDescription="@string/medicine_period_cd">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/medication_period_title"
+                        style="@style/CardViewTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:text="@string/medication_period_title"/>
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/one_day"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:contentDescription="@string/one_day_period_string"
+                            android:onClick="medicationPeriodChanged"
+                            android:text="@string/one_day_period_string"/>
+
+                        <RadioButton
+                            android:id="@+id/one_week"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/one_week_period_string"
+                            android:onClick="medicationPeriodChanged"
+                            android:text="@string/one_week_period_string"/>
+
+                        <RadioButton
+                            android:id="@+id/one_month"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/one_month_period_string"
+                            android:onClick="medicationPeriodChanged"
+                            android:text="@string/one_month_period_string"/>
+
+                        <RadioButton
+                            android:id="@+id/three_months"
+                            style="@style/CardViewEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/three_months_period_string"
+                            android:onClick="medicationPeriodChanged"
+                            android:text="@string/three_months_period_string"/>
+                    </RadioGroup>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/medication_shape_and_colour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:minHeight="230dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin">
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:minHeight="230dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -468,12 +535,12 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/color_pallette"
-                        android:scrollbars="vertical"
-                        android:focusable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:focusable="true"
                         android:minHeight="64dp"
-                        android:layout_gravity="center">
+                        android:scrollbars="vertical">
                     </android.support.v7.widget.RecyclerView>
 
 
@@ -488,7 +555,8 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin">
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:contentDescription="@string/medicine_message_cd">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -521,6 +589,7 @@
                             style="@style/CardViewEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/before_food_instruction"
                             android:onClick="foodMessageChanged"
                             android:text="@string/before_food_instruction"/>
 
@@ -529,6 +598,7 @@
                             style="@style/CardViewEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/after_food_instruction"
                             android:onClick="foodMessageChanged"
                             android:text="@string/after_food_instruction"/>
 
@@ -537,6 +607,7 @@
                             style="@style/CardViewEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/with_food_instruction"
                             android:onClick="foodMessageChanged"
                             android:text="@string/with_food_instruction"/>
 
@@ -546,6 +617,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
+                            android:contentDescription="@string/no_food_instructions"
                             android:onClick="foodMessageChanged"
                             android:text="@string/no_food_instructions"/>
                     </RadioGroup>
@@ -562,6 +634,7 @@
                         style="@style/CardViewEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/free_message_cd"
                         android:ems="10"
                         android:hint="@string/medication_free_instructions_hint"
                         android:imeOptions="actionDone"
@@ -575,19 +648,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:backgroundTint="@color/accent_custom"
-                android:text="@string/button_text"
+                android:contentDescription="@string/save_medicine_cd"
                 android:onClick="saveMedication"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="@string/button_text"
                 android:textColor="@color/white"/>
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"

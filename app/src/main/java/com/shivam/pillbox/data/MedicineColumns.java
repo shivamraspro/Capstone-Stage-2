@@ -49,7 +49,7 @@ public class MedicineColumns {
     //Dosage for the medication
     @DataType(DataType.Type.REAL)
     @NotNull
-    public static final String DOSE  = "dose";
+    public static final String DOSE = "dose";
 
     //Extra Free Text Message for the medication
     @DataType(DataType.Type.TEXT)

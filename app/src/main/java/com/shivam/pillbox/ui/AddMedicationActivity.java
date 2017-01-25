@@ -33,7 +33,7 @@ import com.shivam.pillbox.extras.MedicineProperties;
 import com.shivam.pillbox.extras.MedicineTime;
 import com.shivam.pillbox.recyclerViewHelpers.ColorPalletteAdapter;
 import com.shivam.pillbox.recyclerViewHelpers.RecyclerViewClickListener;
-import com.shivam.pillbox.tasks.SaveMedicineTask;
+import com.shivam.pillbox.tasks.SaveFirstDayMedicineTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -136,7 +136,7 @@ public class AddMedicationActivity extends AppCompatActivity
 
     private String medicineName = "";
 
-    private int medicineReminderFrequency;
+    private int medicineReminderFrequency = 1;
 
     private ArrayList<LinearLayout> timeSelectors;
 
@@ -148,6 +148,8 @@ public class AddMedicationActivity extends AppCompatActivity
 
     //Color of medicine (0-7)
     private int colorSelected = 0;
+
+    private int medicinePeriod = 1;
 
     private HashMap<Integer, MedicineTime> medicineTimes;
 
@@ -171,7 +173,6 @@ public class AddMedicationActivity extends AppCompatActivity
         timeSelectors.add(timeSelector6);
         timeSelectors.add(timeSelector7);
 
-        medicineReminderFrequency = 1;
         reminderTimesSpinner.setOnItemSelectedListener(this);
 
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -348,6 +349,23 @@ public class AddMedicationActivity extends AppCompatActivity
         }
     }
 
+    public void medicationPeriodChanged(View view) {
+        switch (view.getId()) {
+            case R.id.one_day:
+                medicinePeriod = 1;
+                break;
+            case R.id.one_week:
+                medicinePeriod = 7;
+                break;
+            case R.id.one_month:
+                medicinePeriod = 30;
+                break;
+            case R.id.three_months:
+                medicinePeriod = 91;
+                break;
+        }
+    }
+
     public void selectedShapeChanged(View view) {
         switch (view.getId()) {
             case R.id.shape_circle:
@@ -375,7 +393,7 @@ public class AddMedicationActivity extends AppCompatActivity
             return;
         }
 
-        new SaveMedicineTask().execute(new MedicineProperties(
+        new SaveFirstDayMedicineTask().execute(new MedicineProperties(
                 mContext,
                 medicineTimes,
                 medicineName,
@@ -383,7 +401,8 @@ public class AddMedicationActivity extends AppCompatActivity
                 foodMessage,
                 freeMessage,
                 shapeSelected,
-                colorSelected
+                colorSelected,
+                medicinePeriod
         ));
 
         Bundle bundle = new Bundle();

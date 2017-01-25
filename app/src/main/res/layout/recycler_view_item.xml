@@ -22,9 +22,9 @@
     <LinearLayout
         android:id="@+id/med_time_container"
         android:layout_width="64dp"
-        android:background="@drawable/border"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="@drawable/border"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -63,7 +63,6 @@
 
         <TextView
             android:id="@+id/med_name"
-            android:transitionName="selectedMed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -71,6 +70,7 @@
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/grey_900"
+            android:transitionName="selectedMed"
             tools:text="Crocin 100mg"/>
 
         <TextView

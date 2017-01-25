@@ -14,7 +14,7 @@ public class MedicineTime {
 
     public MedicineTime(int h, int m, float d) {
         hourOfDay = h;
-        mins= m;
+        mins = m;
         dose = d;
     }
 

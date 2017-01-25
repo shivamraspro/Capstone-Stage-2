@@ -130,7 +130,7 @@ public class MedicineCursorAdapter extends CursorRecyclerViewAdapter<MedicineCur
 
 
         String freeMsg = cursor.getString(MedicineColumns.MESSAGE_FREE_INDEX);
-        if(!freeMsg.equals(""))
+        if (!freeMsg.equals(""))
             descString += ". " + freeMsg;
     }
 

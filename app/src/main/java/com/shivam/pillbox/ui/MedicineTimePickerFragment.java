@@ -71,7 +71,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
 
         switch (view.getId()) {
             case R.id.positive_button:
-                ((TimePickerAndDosageDialogListener)getActivity()).getTimeAndDosage(
+                ((TimePickerAndDosageDialogListener) getActivity()).getTimeAndDosage(
                         //hourOfDay
                         hour,
                         mins,
@@ -82,7 +82,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
             case R.id.negative_button:
                 doseQty = getArguments().getFloat("doseQty");
                 //TODO error handling
-                ((TimePickerAndDosageDialogListener)getActivity()).getTimeAndDosage(
+                ((TimePickerAndDosageDialogListener) getActivity()).getTimeAndDosage(
                         -1,
                         -1,
                         doseQty,
@@ -100,7 +100,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
 
         doseQty = Float.parseFloat(doseQuantity.getText().toString());
 
-        doseQty = ((int)(doseQty*100))/100.0f;
+        doseQty = ((int) (doseQty * 100)) / 100.0f;
 
         switch (view.getId()) {
             case R.id.plus:
@@ -122,7 +122,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
         mins = minutes;
     }
 
-    public interface TimePickerAndDosageDialogListener{
+    public interface TimePickerAndDosageDialogListener {
         void getTimeAndDosage(int hour, int mins, float dose, int id);
     }
 

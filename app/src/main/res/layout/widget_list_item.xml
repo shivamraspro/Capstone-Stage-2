@@ -22,9 +22,9 @@
     <LinearLayout
         android:id="@+id/med_time_container_widget"
         android:layout_width="64dp"
-        android:background="@drawable/border"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="@drawable/border"
         android:orientation="vertical"
         android:padding="8dp">
 

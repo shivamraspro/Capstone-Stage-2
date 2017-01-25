@@ -11,17 +11,19 @@ import java.util.HashMap;
 public class MedicineProperties {
     private HashMap<Integer, MedicineTime> medicineTimes;
     private String medicineName;
-    //todo not needed
     private int medicineReminderFrequency;
     private String foodMessage;
     private String freeMessage;
     private int shapeSelected;
     private int colorSelected;
+    private int medicinePeriod;
+    private String medID;
+
     private Context context;
 
     public MedicineProperties(Context context, HashMap<Integer, MedicineTime> medicineTimes, String
             medicineName, int medicineReminderFrequency, String foodMessage, String freeMessage,
-                              int shapeSelected, int colorSelected) {
+                              int shapeSelected, int colorSelected, int medicinePeriod) {
         this.context = context;
         this.medicineTimes = medicineTimes;
         this.medicineName = medicineName;
@@ -30,6 +32,7 @@ public class MedicineProperties {
         this.freeMessage = freeMessage;
         this.shapeSelected = shapeSelected;
         this.colorSelected = colorSelected;
+        this.medicinePeriod = medicinePeriod;
     }
 
 
@@ -41,7 +44,6 @@ public class MedicineProperties {
         return medicineName;
     }
 
-    //todo not needed
     public int getMedicineReminderFrequency() {
         return medicineReminderFrequency;
     }
@@ -62,7 +64,20 @@ public class MedicineProperties {
         return colorSelected;
     }
 
+    public int getMedicinePeriod() {
+        return medicinePeriod;
+    }
+
+    public String getMedID() {
+        return medID;
+    }
+
     public Context getContext() {
         return context;
+    }
+
+
+    public void setMedID(String medID) {
+        this.medID = medID;
     }
 }

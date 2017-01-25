@@ -15,9 +15,13 @@ public class RecyclerViewEmptyViewSupport extends RecyclerView {
     @Nullable
     private View emptyView;
 
-    public RecyclerViewEmptyViewSupport(Context context) { super(context); }
+    public RecyclerViewEmptyViewSupport(Context context) {
+        super(context);
+    }
 
-    public RecyclerViewEmptyViewSupport(Context context, AttributeSet attrs) { super(context, attrs); }
+    public RecyclerViewEmptyViewSupport(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     public RecyclerViewEmptyViewSupport(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
