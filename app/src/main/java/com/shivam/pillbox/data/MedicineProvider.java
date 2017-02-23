@@ -34,20 +34,29 @@ public class MedicineProvider {
     public static class Medicines {
         @ContentUri(
                 path = Path.MEDICINES,
-                type = "vnd.android.cursor.dir/quote",
+                type = "vnd.android.cursor.dir/medicines",
                 defaultSort = MedicineColumns.TIME_IN_MILLIS + " ASC"
         )
         public static final Uri CONTENT_URI = buildUri(Path.MEDICINES);
 
+//        @ContentUri(
+//                path = Path.MEDICINES,
+//                type = "vnd.android.cursor.dir/quote",
+//                where = MedicineColumns.MEDICINE_ID,
+//                defaultSort = MedicineColumns.TIME_IN_MILLIS + " ASC"
+//        )
+//        public
+//
         @InexactContentUri(
                 name = "MED_ID",
-                path = Path.MEDICINES + "/#",
+                path = Path.MEDICINES + "/*",
                 type = "vnd.android.cursor.item/medicines",
-                whereColumn = MedicineColumns._ID,
+                whereColumn = MedicineColumns.MEDICINE_ID,
+                defaultSort = MedicineColumns.TIME_IN_MILLIS + " ASC",
                 pathSegment = 1
         )
-        public static Uri withId(int ID) {
-            return buildUri(Path.MEDICINES, ID + "");
+        public static Uri withId(String medId) {
+            return buildUri(Path.MEDICINES, medId);
         }
 
 //        @ContentUri(

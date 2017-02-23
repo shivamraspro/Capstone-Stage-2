@@ -81,7 +81,7 @@ public class MedicineTimePickerFragment extends DialogFragment implements TimePi
                 break;
             case R.id.negative_button:
                 doseQty = getArguments().getFloat("doseQty");
-                //TODO error handling
+                //TODO : error handling
                 ((TimePickerAndDosageDialogListener) getActivity()).getTimeAndDosage(
                         -1,
                         -1,

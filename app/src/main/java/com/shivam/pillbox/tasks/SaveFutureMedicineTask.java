@@ -6,6 +6,7 @@ import android.content.OperationApplicationException;
 import android.os.AsyncTask;
 import android.os.RemoteException;
 
+import com.shivam.pillbox.alarms.AlarmScheduler;
 import com.shivam.pillbox.data.MedicineColumns;
 import com.shivam.pillbox.data.MedicineProvider;
 import com.shivam.pillbox.extras.MedicineProperties;
@@ -74,11 +75,12 @@ public class SaveFutureMedicineTask extends AsyncTask<MedicineProperties, Void, 
                 calendar.set(Calendar.MINUTE, mins);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
+                long medicineTime = calendar.getTimeInMillis();
 
                 builder.withValue(MedicineColumns.MEDICINE_ID, medicineId);
                 builder.withValue(MedicineColumns.HOUR_OF_DAY, hourOfDay);
                 builder.withValue(MedicineColumns.MINUTES, mins);
-                builder.withValue(MedicineColumns.TIME_IN_MILLIS, calendar.getTimeInMillis());
+                builder.withValue(MedicineColumns.TIME_IN_MILLIS, medicineTime);
                 builder.withValue(MedicineColumns.NAME, medicineProperties[0].getMedicineName());
                 builder.withValue(MedicineColumns.DOSE, dose);
                 builder.withValue(MedicineColumns.MESSAGE_FOOD, medicineProperties[0].getFoodMessage());
@@ -89,6 +91,9 @@ public class SaveFutureMedicineTask extends AsyncTask<MedicineProperties, Void, 
                         .getMedicineReminderFrequency());
 
                 batchOperations.add(builder.build());
+
+                AlarmScheduler.scheduleAlarm(mContext, medicineTime, MedicineProvider.Medicines
+                        .withId(medicineId));
 
                 Utility.updateWidgets(mContext);
             }

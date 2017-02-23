@@ -96,16 +96,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager
                         mCursor.moveToPosition(position);
 
                         Intent intent = new Intent(mContext, DetailsActivity.class);
-                        intent.putExtra("medId", mCursor.getString(MedicineColumns
-                                .MEDICINE_ID_INDEX));
-                        intent.putExtra("medName", mCursor.getString(MedicineColumns.NAME_INDEX));
-                        intent.putExtra("medFreq", mCursor.getInt(MedicineColumns
-                                .DAY_FREQUENCY_INDEX));
-                        intent.putExtra("medFoodMessage", mCursor.getString(MedicineColumns
-                                .MESSAGE_FOOD_INDEX));
-                        intent.putExtra("medFreeMessage", mCursor.getString(MedicineColumns
-                                .MESSAGE_FREE_INDEX));
-                        intent.putExtra("medColor", mCursor.getInt(MedicineColumns.COLOR_INDEX));
+
+                        String medicineId = mCursor.getString(MedicineColumns.MEDICINE_ID_INDEX);
+
+                        intent.setData(MedicineProvider.Medicines.withId(medicineId));
+//                        intent.putExtra("medId", mCursor.getString(MedicineColumns
+//                                .MEDICINE_ID_INDEX));
+//                        intent.putExtra("medName", mCursor.getString(MedicineColumns.NAME_INDEX));
+//                        intent.putExtra("medFreq", mCursor.getInt(MedicineColumns
+//                                .DAY_FREQUENCY_INDEX));
+//                        intent.putExtra("medFoodMessage", mCursor.getString(MedicineColumns
+//                                .MESSAGE_FOOD_INDEX));
+//                        intent.putExtra("medFreeMessage", mCursor.getString(MedicineColumns
+//                                .MESSAGE_FREE_INDEX));
+//                        intent.putExtra("medColor", mCursor.getInt(MedicineColumns.COLOR_INDEX));
 
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(mActivity)

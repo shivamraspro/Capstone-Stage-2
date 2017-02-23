@@ -36,7 +36,7 @@ public class MedicineColumns {
     public static final String MINUTES = "mins";
 
     //Alarm Date & Time in milliseconds
-    //TODO consider using separate Day, Month, Year Field instead of this field
+    //TODO : consider using separate Day, Month, Year Field instead of this field
     @DataType(DataType.Type.REAL)
     @NotNull
     public static final String TIME_IN_MILLIS = "millis";

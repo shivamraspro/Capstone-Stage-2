@@ -100,16 +100,20 @@ public class PillBoxRemoteViewsService extends RemoteViewsService {
                         getApplicationContext().getResources().getColor(Utility.getColorText(colorIndex)));
 
                 final Intent fillInIntent = new Intent();
-                fillInIntent.putExtra("medId", cursor.getString(MedicineColumns
-                        .MEDICINE_ID_INDEX));
-                fillInIntent.putExtra("medName", cursor.getString(MedicineColumns.NAME_INDEX));
-                fillInIntent.putExtra("medFreq", cursor.getInt(MedicineColumns
-                        .DAY_FREQUENCY_INDEX));
-                fillInIntent.putExtra("medFoodMessage", cursor.getString(MedicineColumns
-                        .MESSAGE_FOOD_INDEX));
-                fillInIntent.putExtra("medFreeMessage", cursor.getString(MedicineColumns
-                        .MESSAGE_FREE_INDEX));
-                fillInIntent.putExtra("medColor", colorIndex);
+
+                String medicineId = cursor.getString(MedicineColumns.MEDICINE_ID_INDEX);
+
+                fillInIntent.setData(MedicineProvider.Medicines.withId(medicineId));
+//                fillInIntent.putExtra("medId", cursor.getString(MedicineColumns
+//                        .MEDICINE_ID_INDEX));
+//                fillInIntent.putExtra("medName", cursor.getString(MedicineColumns.NAME_INDEX));
+//                fillInIntent.putExtra("medFreq", cursor.getInt(MedicineColumns
+//                        .DAY_FREQUENCY_INDEX));
+//                fillInIntent.putExtra("medFoodMessage", cursor.getString(MedicineColumns
+//                        .MESSAGE_FOOD_INDEX));
+//                fillInIntent.putExtra("medFreeMessage", cursor.getString(MedicineColumns
+//                        .MESSAGE_FREE_INDEX));
+//                fillInIntent.putExtra("medColor", colorIndex);
 
                 view.setOnClickFillInIntent(R.id.medicine_info_widget, fillInIntent);
 

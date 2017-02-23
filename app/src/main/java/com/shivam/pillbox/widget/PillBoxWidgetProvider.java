@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.shivam.pillbox.R;
@@ -17,10 +18,17 @@ import com.shivam.pillbox.ui.MainActivity;
 public class PillBoxWidgetProvider extends AppWidgetProvider {
 
     @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        Log.d("xxx", "on deleted called");
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         for (int appWidgetId : appWidgetIds) {
 
+            Log.d("xxx", appWidgetId+"");
             // Set up the intent that starts the PillBoxRemoteViewsService, which will
             // provide the views for this collection.
             Intent intent = new Intent(context, PillBoxRemoteViewsService.class);

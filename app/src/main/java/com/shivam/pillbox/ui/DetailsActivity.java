@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 
 import com.shivam.pillbox.R;
 import com.shivam.pillbox.data.MedicineColumns;
-import com.shivam.pillbox.data.MedicineProvider;
 import com.shivam.pillbox.extras.ContextAndId;
 import com.shivam.pillbox.extras.Utility;
 import com.shivam.pillbox.recyclerViewHelpers.MedicineDetailsCursorAdapter;
@@ -63,6 +63,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
     private String medId;
     private static final int CURSOR_LOADER_ID = 1;
     private MedicineDetailsCursorAdapter adapter;
+    private Uri medicineUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,44 +75,9 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
         mContext = this;
 
         Intent intent = getIntent();
-
-        medId = intent.getStringExtra("medId");
+        medicineUri = intent.getData();
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
-
-        final int colorIndex = intent.getIntExtra("medColor", -1);
-        detailsActivityContainer.setBackground(getResources().getDrawable(
-                Utility.getColorBackground(colorIndex)));
-
-        nameTextView.setText(intent.getStringExtra("medName"));
-        nameTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
-
-        instructionsTitleTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
-        upcomingTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
-
-        int freq = intent.getIntExtra("medFreq", 1);
-        if (freq > 1)
-            frequencyTextView.setText(getString(R.string.details_frequency_text, freq));
-        else
-            frequencyTextView.setText(getString(R.string.details_frequency_text_one));
-
-        String descString = "";
-        String foodMsg = intent.getStringExtra("medFoodMessage");
-        if (!foodMsg.equals("")) {
-            descString = getString(R.string.details_instructions_starting_text);
-            descString += " " + foodMsg;
-        }
-        String freeMsg = intent.getStringExtra("medFreeMessage");
-        if (foodMsg.equals("") && freeMsg.equals(""))
-            descString = getString(R.string.no_specific_instructions);
-        else {
-            if (!foodMsg.equals(""))
-                descString += ". " + freeMsg;
-            else
-                descString = freeMsg;
-        }
-
-        instructionsTextView.setText(descString);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,11 +143,19 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        return new CursorLoader(
+//                mContext,
+//                MedicineProvider.Medicines.CONTENT_URI,
+//                MedicineColumns.ALL_COLUMNS,
+//                MedicineColumns.MEDICINE_ID + " = \"" + medId + "\"",
+//                null,
+//                null
+//        );
         return new CursorLoader(
                 mContext,
-                MedicineProvider.Medicines.CONTENT_URI,
+                medicineUri,
                 MedicineColumns.ALL_COLUMNS,
-                MedicineColumns.MEDICINE_ID + " = \"" + medId + "\"",
+                null,
                 null,
                 null
         );
@@ -189,11 +163,62 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        bindViews(cursor);
         adapter.swapCursor(cursor);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
+    }
+
+
+    private void bindViews(Cursor cursor) {
+        cursor.moveToFirst();
+  //      medId = intent.getStringExtra("medId");
+
+        //TODO : App crashes on deleting a medicine at this point
+        medId = cursor.getString(MedicineColumns.MEDICINE_ID_INDEX);
+
+ //       final int colorIndex = intent.getIntExtra("medColor", -1);
+        final int colorIndex = cursor.getInt(MedicineColumns.COLOR_INDEX);
+
+        detailsActivityContainer.setBackground(getResources().getDrawable(
+                Utility.getColorBackground(colorIndex)));
+
+//        nameTextView.setText(intent.getStringExtra("medName"));
+        nameTextView.setText(cursor.getString(MedicineColumns.NAME_INDEX));
+        nameTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
+
+        instructionsTitleTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
+        upcomingTextView.setTextColor(getResources().getColor(Utility.getColorText(colorIndex)));
+
+//        int freq = intent.getIntExtra("medFreq", 1);
+        int freq = cursor.getInt(MedicineColumns.DAY_FREQUENCY_INDEX);
+        if (freq > 1)
+            frequencyTextView.setText(getString(R.string.details_frequency_text, freq));
+        else
+            frequencyTextView.setText(getString(R.string.details_frequency_text_one));
+
+        String descString = "";
+//        String foodMsg = intent.getStringExtra("medFoodMessage");
+        String foodMsg = cursor.getString(MedicineColumns.MESSAGE_FOOD_INDEX);
+        if (!foodMsg.equals("")) {
+            descString = getString(R.string.details_instructions_starting_text);
+            descString += " " + foodMsg;
+        }
+//        String freeMsg = intent.getStringExtra("medFreeMessage");
+        String freeMsg = cursor.getString(MedicineColumns.MESSAGE_FREE_INDEX);
+        if (foodMsg.equals("") && freeMsg.equals(""))
+            descString = getString(R.string.no_specific_instructions);
+        else {
+            if (!foodMsg.equals(""))
+                descString += ". " + freeMsg;
+            else
+                descString = freeMsg;
+        }
+
+        instructionsTextView.setText(descString);
+
     }
 }
